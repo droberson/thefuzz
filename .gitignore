@@ -1,0 +1,5 @@
+tests/fmt
+tests/buf
+tests/divzero
+tests/stderr
+tests/sleep
