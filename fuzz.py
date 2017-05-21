@@ -3,6 +3,13 @@
 """
 fuzz.py -- CLI fuzzer
   by Daniel Roberson @dmfroberson
+
+TODO:
+- figure out "scripting language"
+- more fuzz strings
+- map signal numbers to names
+- be verbose when potential errors are encountered
+- split up fuzz strings by type: @bof@, @sqli@, @fmtstr@, ...
 """
 
 import subprocess
