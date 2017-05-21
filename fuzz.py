@@ -10,6 +10,7 @@ TODO:
 - map signal numbers to names
 - be verbose when potential errors are encountered
 - split up fuzz strings by type: @bof@, @sqli@, @fmtstr@, ...
+- add timeout option
 """
 
 import subprocess
@@ -29,13 +30,13 @@ FUZZ = [
 ]
 
 for i in FUZZ:
-    process = subprocess.Popen(args=["./tests/fmt", i[1]],
+    process = subprocess.Popen(args=["./tests/sleep", i[1]],
                                shell=False,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
     out, err = process.communicate()
 
-    print "exit:%sout:%serr:%stest:%s" % \
+    print "exit:%sstdout:%sstderr:%stest:%s" % \
         (str(process.returncode).ljust(8),
          str(len(out)).ljust(8),
          str(len(err)).ljust(8),
