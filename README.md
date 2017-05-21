@@ -26,17 +26,10 @@
 
 # Introduction
 
-This is some fuzzing tools. Please use this opportunity to enjoy the
-savage police officer with a nightstick ASCII art.
+This is the start of some fuzzing tools. Please use this opportunity
+to enjoy the savage police officer with a nightstick ASCII art.
 
 
 # What's included?
 
-- Some crash strings plus others lifted from fuzzdb project:
-  https://github.com/fuzzdb-project/fuzzdb/
-  
-- A CLI fuzzer
-
-- An environment variable fuzzer.
-
-- Some network protocol fuzzers.
+- Not much yet!
