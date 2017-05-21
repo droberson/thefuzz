@@ -4,6 +4,7 @@ Exit value will be 128 + signal when a program exits due to a
 signal. When programs crash, they are typically sent a signal on nix
 systems. Take the following samples:
 
+- Format string bug
 ```
 % cat fmt.c
 #include <stdio.h>
@@ -26,6 +27,7 @@ zsh: segmentation fault (core dumped)  ./fmt %s%s%s%s%s%s%s%s
 SEGV
 ```
 
+- Buffer overflow
 ```
 % cat buf.c
 #include <stdio.h>
@@ -45,6 +47,7 @@ zsh: abort (core dumped)  ./buf `perl -e 'print "A" x 128'`
 ABRT
 ```
 
+- Division by zero
 ```
 % cat divzero.c
 #include <stdio.h>
