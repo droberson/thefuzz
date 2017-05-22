@@ -12,6 +12,8 @@ TODO:
 - make not so ugly!!
 """
 
+import os
+import sys
 import subprocess
 
 # TODO More strings. See fuzzdb project:
@@ -32,12 +34,14 @@ FUZZ = [
 
 def fuzz_test(arguments):
     for fuzz_string in FUZZ:
+        # Replace @@ with fuzz string
         current_fuzz = []
         for arg in arguments:
+            # TODO add more options: @sqli@, @fmtstr@, @bof@ ...
             if arg == "@@":
                 current_fuzz.append(fuzz_string[1])
             current_fuzz.append(arg)
-        #process = subprocess.Popen(args=["./tests/fmt", fuzz_string[1]],
+
         process = subprocess.Popen(args=current_fuzz,
                                    shell=False,
                                    stdout=subprocess.PIPE,
@@ -52,18 +56,52 @@ def fuzz_test(arguments):
 
 
 if __name__ == "__main__":
-    # TODO specify fuzz file
-    # TODO getopt/usage stuff
-    for line in open("test.fuzz", "r"):
+    print "[+] fuzz.py -- by Daniel Roberson @dmfroberson"
+    print
+
+    if len(sys.argv) != 3:
+        print "[-] Not enough arguments!"
+        print "[-] usage: ./fuzz.py /path/to/binary /path/to/script"
+        print "[-] Exiting."
+        exit(os.EX_USAGE)
+
+    # Make sure first argument exists and is executable
+    if os.path.isfile(sys.argv[1]) and os.access(sys.argv[1], os.X_OK):
+        progname = sys.argv[1]
+    else:
+        print "[-] Specified program \"%s\" is not executable." % sys.argv[1]
+        print "[-] Exiting."
+        exit(os.EX_USAGE)
+
+    # Make sure script is readable
+    if os.access(sys.argv[2], os.R_OK):
+        testfile = sys.argv[2]
+    else:
+        print "[-] Specified script \"%s\" is not readable." % sys.argv[2]
+        print "[-] Exiting."
+        exit(os.EX_USAGE)
+
+    print "[+] Fuzzing %s with tests defined in %s" % (progname, testfile)
+    print
+
+    for line in open(testfile, "r"):
+        line = line.rstrip()
         # Skip blank lines
-        if len(line.rstrip()) == 0:
+        if len(line) == 0:
             continue
 
         # Skip comments
         if line[:1] == "#":
             continue
 
-        # TODO: Make sure first word is executable
         # TODO: Make sure only one @@ per line
+
+        # Create argv[] for Popen()
         args = line.split()
+        args.insert(0, progname)
+
         fuzz_test(args)
+
+    print
+    print "[+] Pledge your allegiance to Shadaloo and I will let you live!"
+    print "[+] Done"
