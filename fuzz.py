@@ -34,6 +34,10 @@ FUZZ = [
     ["8192 bytes",          "A" * 8192]
 ]
 
+FUZZVARS = [
+    "@@" # All types
+]
+
 def fuzz_test(arguments):
     for fuzz_string in FUZZ:
         # Replace @@ with fuzz string
@@ -86,8 +90,12 @@ if __name__ == "__main__":
     print "[+] Fuzzing %s with tests defined in %s" % (progname, testfile)
     print
 
+    linecount = 0
     for line in open(testfile, "r"):
+        linecount += 1
+
         line = line.rstrip()
+
         # Skip blank lines
         if len(line) == 0:
             continue
@@ -96,7 +104,14 @@ if __name__ == "__main__":
         if line[:1] == "#":
             continue
 
-        # TODO: Make sure only one @@ per line
+        # Make sure only one @@ per line
+        varcount = 0
+        for variable in FUZZVARS:
+            varcount += line.count(variable)
+        if varcount != 0:
+            print " [-] Too many variables on line %d of %s: %s" % \
+                (linecount, testfile, line)
+            continue
 
         # Create argv[] for Popen()
         args = shlex.split(line)
