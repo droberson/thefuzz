@@ -16,7 +16,7 @@ TODO:
 import os
 import sys
 import shlex
-import subprocess
+import subprocess32
 
 # TODO More strings. See fuzzdb project:
 #    https://github.com/fuzzdb-project/fuzzdb
@@ -38,7 +38,8 @@ FUZZVARS = [
     "@@" # All types
 ]
 
-def fuzz_test(arguments):
+
+def fuzz_test(arguments, timeout=0):
     """
     fuzz_test() -- iterates through fuzz strings, supplying them to the target
                 -- program. No return value.
@@ -52,18 +53,23 @@ def fuzz_test(arguments):
                 current_fuzz.append(fuzz_string[1])
             current_fuzz.append(arg)
 
-        process = subprocess.Popen(args=current_fuzz,
+        process = subprocess32.Popen(args=current_fuzz,
                                    shell=False,
-                                   stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE)
-        out, err = process.communicate()
+                                   stdout=subprocess32.PIPE,
+                                   stderr=subprocess32.PIPE)
+
+        out = ""
+        err = ""
+        try:
+            out, err = process.communicate(timeout=timeout)
+        except subprocess32.TimeoutExpired:
+            process.terminate()
 
         print " [*] exit:%sstdout:%sstderr:%stest:%s" % \
             (str(process.returncode).ljust(8),
              str(len(out)).ljust(8),
              str(len(err)).ljust(8),
              fuzz_string[0])
-
 
 if __name__ == "__main__":
     print "[+] fuzz.py -- by Daniel Roberson @dmfroberson"
@@ -125,7 +131,7 @@ if __name__ == "__main__":
 
         # Finally, fuzz the target
         print "[+] %s" % args
-        fuzz_test(args)
+        fuzz_test(args, timeout=1)
         print
 
     # All done.
