@@ -112,9 +112,11 @@ if __name__ == "__main__":
         varcount = 0
         for variable in FUZZVARS:
             varcount += line.count(variable)
-        if varcount != 0:
-            print " [-] Too many variables on line %d of %s -- Skipping: %s" % \
-                (linecount, testfile, line)
+        if varcount > 1:
+            print "[-] Too many variables on line %d of %s -- Skipping." % \
+                (linecount, testfile)
+            print "    %s", line
+            print
             continue
 
         # Create argv[] for Popen()
@@ -124,6 +126,7 @@ if __name__ == "__main__":
         # Finally, fuzz the target
         print "[+] %s" % args
         fuzz_test(args)
+        print
 
     # All done.
     print
