@@ -39,6 +39,10 @@ FUZZVARS = [
 ]
 
 def fuzz_test(arguments):
+    """
+    fuzz_test() -- iterates through fuzz strings, supplying them to the target
+                -- program. No return value.
+    """
     for fuzz_string in FUZZ:
         # Replace @@ with fuzz string
         current_fuzz = []
