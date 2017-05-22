@@ -10,6 +10,7 @@ TODO:
 - split up fuzz strings by type: @bof@, @sqli@, @fmtstr@, ...
 - add timeout option
 - make not so ugly!!
+- logging
 """
 
 import os
@@ -48,7 +49,7 @@ def fuzz_test(arguments):
                                    stderr=subprocess.PIPE)
         out, err = process.communicate()
 
-        print "exit:%sstdout:%sstderr:%stest:%s" % \
+        print " [*] exit:%sstdout:%sstderr:%stest:%s" % \
             (str(process.returncode).ljust(8),
              str(len(out)).ljust(8),
              str(len(err)).ljust(8),
@@ -100,6 +101,8 @@ if __name__ == "__main__":
         args = line.split()
         args.insert(0, progname)
 
+        # Finally, fuzz the target
+        print "[+] %s" % args
         fuzz_test(args)
 
     print
