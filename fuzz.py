@@ -15,6 +15,7 @@ TODO:
 
 import os
 import sys
+import shlex
 import subprocess
 
 # TODO More strings. See fuzzdb project:
@@ -98,7 +99,7 @@ if __name__ == "__main__":
         # TODO: Make sure only one @@ per line
 
         # Create argv[] for Popen()
-        args = line.split()
+        args = shlex.split(line)
         args.insert(0, progname)
 
         # Finally, fuzz the target
