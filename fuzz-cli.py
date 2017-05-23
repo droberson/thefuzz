@@ -71,6 +71,7 @@ def fuzz_test(arguments, timeout=0):
              str(len(err)).ljust(8),
              fuzz_string[0])
 
+
 if __name__ == "__main__":
     print "[+] fuzz.py -- by Daniel Roberson @dmfroberson"
     print
