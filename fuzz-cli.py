@@ -27,6 +27,7 @@ def fuzz_test(arguments, timeout=0):
                 -- program. No return value.
     """
     # Figure out what type of fuzz to be performed
+    # TODO: figure out a cleaner way to do this
     fuzz = []
     for arg in arguments:
         # All strings
@@ -35,9 +36,15 @@ def fuzz_test(arguments, timeout=0):
             fuzz.append("@@")
             continue
 
-        # Test for overflows
+        # Overflows
         if arg == "@bof@":
             fuzz_strings = FUZZ_BOF
+            fuzz.append("@@")
+            continue
+
+        # Format strings
+        if arg == "@fmtstr@":
+            fuzz_strings = FUZZ_FMTSTR
             fuzz.append("@@")
             continue
 
