@@ -15,6 +15,7 @@ TODO:
 import os
 import sys
 import shlex
+import argparse
 import subprocess32
 
 # TODO: import as, change elsewhere in code
@@ -83,28 +84,43 @@ def fuzz_test(arguments, timeout=0):
 
 
 if __name__ == "__main__":
-    print "[+] fuzz.py -- by Daniel Roberson @dmfroberson"
+    print "[+] fuzz-cli.py -- by Daniel Roberson @dmfroberson"
     print
 
-    if len(sys.argv) != 3:
-        print "[-] Not enough arguments!"
-        print "[-] usage: ./fuzz.py /path/to/binary /path/to/script"
-        print "[-] Exiting."
-        exit(os.EX_USAGE)
+    # Parse CLI arguments
+    description = "example: ./fuzz-cli.py -t <timeout> <binary> <script>"
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument("binary",
+                        nargs="+",
+                        help="Path to binary to fuzz")
+    parser.add_argument("script",
+                        nargs="+",
+                        help="Path to script file containing test cases")
+    parser.add_argument("-t",
+                        "--timeout",
+                        default=1,
+                        type=float,
+                        required=False,
+                        help="Timeout before killing program being fuzzed")
+    args = parser.parse_args()
 
-    # Make sure first argument exists and is executable
-    if os.path.isfile(sys.argv[1]) and os.access(sys.argv[1], os.X_OK):
-        progname = sys.argv[1]
-    else:
-        print "[-] Specified program \"%s\" is not executable." % sys.argv[1]
+    #if len(sys.argv) != 3:
+    #    print "[-] Not enough arguments!"
+    #    print "[-] usage: ./fuzz.py /path/to/binary /path/to/script"
+    #    print "[-] Exiting."
+    #    exit(os.EX_USAGE)
+
+    # Make sure target exists and is executable
+    progname = args.binary[0]
+    if not os.path.isfile(progname) and not os.access(progname, os.X_OK):
+        print "[-] Specified program \"%s\" is not executable." % progname
         print "[-] Exiting."
         exit(os.EX_USAGE)
 
     # Make sure script is readable
-    if os.access(sys.argv[2], os.R_OK):
-        testfile = sys.argv[2]
-    else:
-        print "[-] Specified script \"%s\" is not readable." % sys.argv[2]
+    testfile = args.script[0]
+    if not os.access(testfile, os.R_OK):
+        print "[-] Specified script \"%s\" is not readable." % testfile
         print "[-] Exiting."
         exit(os.EX_USAGE)
 
@@ -137,12 +153,12 @@ if __name__ == "__main__":
             continue
 
         # Create argv[] for Popen()
-        args = shlex.split(line)
-        args.insert(0, progname)
+        fuzz_args = shlex.split(line)
+        fuzz_args.insert(0, progname)
 
         # Finally, fuzz the target
-        print "[+] %s" % args
-        fuzz_test(args, timeout=1)
+        print "[+] %s" % fuzz_args
+        fuzz_test(fuzz_args, timeout=args.timeout)
         print
 
     # All done.
