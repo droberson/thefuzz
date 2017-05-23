@@ -7,7 +7,6 @@ fuzz.py -- CLI fuzzer
 TODO:
 - map signal numbers to names
 - be verbose when potential errors are encountered
-- split up fuzz strings by type: @bof@, @sqli@, @fmtstr@, ...
 - add timeout option
 - make not so ugly!!
 - logging
@@ -18,14 +17,17 @@ import sys
 import shlex
 import subprocess32
 
-# TODO More strings. See fuzzdb project:
+# Many of these were gleaned from the fuzzdb project
 #    https://github.com/fuzzdb-project/fuzzdb
-FUZZ = [
-    ["Single %s",           "%s"],
-    ["Eight %s",            "%s" * 8],
-    ["Eight %s with space", "%s " * 8],
+
+# Numbers
+FUZZ_NUMBERS = [
     ["Zero",                "0"],
     ["Negative 1",          "-1"],
+]
+
+# Overflows
+FUZZ_BOF = [
     ["128 bytes",           "A" * 128],
     ["256 bytes",           "A" * 256],
     ["512 bytes",           "A" * 512],
@@ -34,9 +36,25 @@ FUZZ = [
     ["8192 bytes",          "A" * 8192]
 ]
 
-FUZZVARS = [
-    "@@" # All types
+# Format strings
+FUZZ_FMTSTR = [
+    ["Single %s",           "%s"],
+    ["Eight %s",            "%s" * 8],
+    ["Eight %s with space", "%s " * 8]
 ]
+
+# All possible combinations
+FUZZ_ALL = FUZZ_NUMBERS + FUZZ_BOF + FUZZ_FMTSTR
+
+# Variable types for DSL
+FUZZVARS = [
+    "@@", # All types
+    "@num@", # Numbers
+    "@bof@", # Overflows
+    "@fmtstr", # Format strings
+]
+
+
 
 
 def fuzz_test(arguments, timeout=0):
@@ -44,27 +62,48 @@ def fuzz_test(arguments, timeout=0):
     fuzz_test() -- iterates through fuzz strings, supplying them to the target
                 -- program. No return value.
     """
-    for fuzz_string in FUZZ:
-        # Replace @@ with fuzz string
+    # Figure out what type of fuzz to be performed
+    fuzz = []
+    for arg in arguments:
+        # All strings
+        if arg == "@@":
+            fuzz_strings = FUZZ_ALL
+            fuzz.append("@@")
+            continue
+
+        # Test for overflows
+        if arg == "@bof@":
+            fuzz_strings = FUZZ_BOF
+            fuzz.append("@@")
+            continue
+
+        # Numbers
+        if arg == "@num@":
+            fuzz_strings = FUZZ_NUMBERS
+            fuzz.append("@@")
+            continue
+
+        # Add non-variable CLI argument
+        fuzz.append(arg)
+
+    # Perform the actual fuzzing
+    for fuzz_string in fuzz_strings:
         current_fuzz = []
         for arg in arguments:
-            # TODO add more options: @sqli@, @fmtstr@, @bof@ ...
-            if arg == "@@":
+            if arg == "@@": # Replace this with string
                 current_fuzz.append(fuzz_string[1])
             current_fuzz.append(arg)
 
-        process = subprocess32.Popen(args=current_fuzz,
+            process = subprocess32.Popen(args=current_fuzz,
                                    shell=False,
                                    stdout=subprocess32.PIPE,
                                    stderr=subprocess32.PIPE)
-
         out = ""
         err = ""
         try:
             out, err = process.communicate(timeout=timeout)
         except subprocess32.TimeoutExpired:
             process.terminate()
-
         print " [*] exit:%sstdout:%sstderr:%stest:%s" % \
             (str(process.returncode).ljust(8),
              str(len(out)).ljust(8),
@@ -122,7 +161,7 @@ if __name__ == "__main__":
         if varcount > 1:
             print "[-] Too many variables on line %d of %s -- Skipping." % \
                 (linecount, testfile)
-            print "    %s", line
+            print "    %s" % line
             print
             continue
 
