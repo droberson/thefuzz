@@ -1,4 +1,4 @@
-all: buf divzero fmt sleep stderr
+all: buf divzero fmt sleep stderr getopt
 
 buf:
 	gcc -o buf buf.c
@@ -14,6 +14,9 @@ sleep:
 
 stderr:
 	gcc -o stderr stderr.c
+
+getopt:
+	gcc -o getopt getopt.c
 
 clean:
 	rm -rf buf divzero fmt sleep stderr *~
