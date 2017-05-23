@@ -3,3 +3,4 @@ tests/buf
 tests/divzero
 tests/stderr
 tests/sleep
+tests/getopt
