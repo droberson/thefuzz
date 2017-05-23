@@ -17,44 +17,8 @@ import sys
 import shlex
 import subprocess32
 
-# Many of these were gleaned from the fuzzdb project
-#    https://github.com/fuzzdb-project/fuzzdb
-
-# Numbers
-FUZZ_NUMBERS = [
-    ["Zero",                "0"],
-    ["Negative 1",          "-1"],
-]
-
-# Overflows
-FUZZ_BOF = [
-    ["128 bytes",           "A" * 128],
-    ["256 bytes",           "A" * 256],
-    ["512 bytes",           "A" * 512],
-    ["1024 bytes",          "A" * 1024],
-    ["4096 bytes",          "A" * 4086],
-    ["8192 bytes",          "A" * 8192]
-]
-
-# Format strings
-FUZZ_FMTSTR = [
-    ["Single %s",           "%s"],
-    ["Eight %s",            "%s" * 8],
-    ["Eight %s with space", "%s " * 8]
-]
-
-# All possible combinations
-FUZZ_ALL = FUZZ_NUMBERS + FUZZ_BOF + FUZZ_FMTSTR
-
-# Variable types for DSL
-FUZZVARS = [
-    "@@", # All types
-    "@num@", # Numbers
-    "@bof@", # Overflows
-    "@fmtstr", # Format strings
-]
-
-
+# TODO: import as, change elsewhere in code
+from constants import *
 
 
 def fuzz_test(arguments, timeout=0):
