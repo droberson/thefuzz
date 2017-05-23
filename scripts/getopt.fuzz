@@ -1,0 +1,15 @@
+# Demonstration of usage against 'getopt' program in tests directory
+# usage: ./tests/getopt [-b <buf>] [-f <fmt>] [-d <div>] [-h] <str>
+
+# argv[1]
+@@
+
+# -b flag
+-b @@
+
+# -f flag
+-f @@
+
+# -d flag
+-d @@
+
