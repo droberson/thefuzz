@@ -7,7 +7,6 @@ fuzz-cli.py -- CLI fuzzer
 TODO:
 - map signal numbers to names
 - be verbose when potential errors are encountered
-- make not so ugly!!
 - logging
 - more fuzz strings
 """
