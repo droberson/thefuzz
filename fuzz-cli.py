@@ -20,9 +20,18 @@ import constants as fuzz_constants
 
 
 def fuzz_test(arguments, timeout=0):
-    """
-    fuzz_test() -- iterates through fuzz strings, supplying them to the target
-                -- program. No return value.
+    """fuzz_test() -- fuzz tests a program with specified types of strings
+
+    Args:
+        arguments (list) - list of argments to run against the program. Expects
+                           at least one variable in @@ format. See scripts
+                           directory for examples.
+        timeout (int)    - Timeout in seconds to allow a program to run. A value
+                           of 0 disables the timeout, so the programs must exit
+                           on their own or be closed by the user.
+
+    Returns:
+        Nothing.
     """
     # Determine what type of fuzz to be performed, based on variable type
     fuzz = []
