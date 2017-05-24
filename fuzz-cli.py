@@ -65,8 +65,7 @@ def fuzz_test(arguments, timeout=0):
 
 
 if __name__ == "__main__":
-    print "[+] fuzz-cli.py -- by Daniel Roberson @dmfroberson"
-    print
+    print "[+] fuzz-cli.py -- by Daniel Roberson @dmfroberson\n"
 
     # Parse CLI arguments
     description = "example: ./fuzz-cli.py -t <timeout> <binary> <script>"
@@ -99,8 +98,7 @@ if __name__ == "__main__":
         print "[-] Exiting."
         exit(os.EX_USAGE)
 
-    print "[+] Fuzzing %s with tests defined in %s" % (progname, testfile)
-    print
+    print "[+] Fuzzing %s with tests defined in %s\n" % (progname, testfile)
 
     linecount = 0
     for line in open(testfile, "r"):
@@ -123,8 +121,7 @@ if __name__ == "__main__":
         if varcount > 1:
             print "[-] Too many variables on line %d of %s -- Skipping." % \
                 (linecount, testfile)
-            print "    %s" % line
-            print
+            print "    %s\n" % line
             continue
 
         # Create argv[] for Popen()
@@ -137,6 +134,5 @@ if __name__ == "__main__":
         print
 
     # All done.
-    print
     print "[+] Pledge your allegiance to Shadaloo and I will let you live!"
     print "[+] Done"
