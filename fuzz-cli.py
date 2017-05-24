@@ -112,7 +112,6 @@ if __name__ == "__main__":
     linecount = 0
     for line in open(testfile, "r"):
         linecount += 1
-
         line = line.rstrip()
 
         # Skip blank lines
