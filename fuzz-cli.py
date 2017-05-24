@@ -9,10 +9,10 @@ TODO:
 - be verbose when potential errors are encountered
 - make not so ugly!!
 - logging
+- more fuzz strings
 """
 
 import os
-import sys
 import shlex
 import argparse
 import subprocess32
@@ -25,33 +25,17 @@ def fuzz_test(arguments, timeout=0):
     fuzz_test() -- iterates through fuzz strings, supplying them to the target
                 -- program. No return value.
     """
-    # Determine what type of fuzz to be performed
-    # TODO: figure out a cleaner way to do this
+    # Determine what type of fuzz to be performed, based on variable type
     fuzz = []
     for arg in arguments:
-        # All strings
-        if arg == "@@":
-            fuzz_strings = fuzz_constants.FUZZ_ALL
-            fuzz.append("@@")
-            continue
-
-        # Overflows
-        if arg == "@bof@":
-            fuzz_strings = fuzz_constants.FUZZ_BOF
-            fuzz.append("@@")
-            continue
-
-        # Format strings
-        if arg == "@fmtstr@":
-            fuzz_strings = fuzz_constants.FUZZ_FMTSTR
-            fuzz.append("@@")
-            continue
-
-        # Numbers
-        if arg == "@num@":
-            fuzz_strings = fuzz_constants.FUZZ_NUMBERS
-            fuzz.append("@@")
-            continue
+        if arg[:1] == "@":
+            count = 0
+            for variable in fuzz_constants.FUZZ_VARS:
+                count += 1
+                if arg == variable[0]:
+                    fuzz_strings = fuzz_constants.FUZZ_VARS[count - 1][1]
+                    fuzz.append("@@")
+                    continue
 
         # Add non-variable CLI argument
         fuzz.append(arg)
@@ -65,9 +49,9 @@ def fuzz_test(arguments, timeout=0):
             current_fuzz.append(arg)
 
             process = subprocess32.Popen(args=current_fuzz,
-                                   shell=False,
-                                   stdout=subprocess32.PIPE,
-                                   stderr=subprocess32.PIPE)
+                                         shell=False,
+                                         stdout=subprocess32.PIPE,
+                                         stderr=subprocess32.PIPE)
         out = ""
         err = ""
         try:
@@ -135,8 +119,8 @@ if __name__ == "__main__":
 
         # Make sure only one @@ per line
         varcount = 0
-        for variable in fuzz_constants.FUZZVARS:
-            varcount += line.count(variable)
+        for variable in fuzz_constants.FUZZ_VARS:
+            varcount += line.count(variable[0])
         if varcount > 1:
             print "[-] Too many variables on line %d of %s -- Skipping." % \
                 (linecount, testfile)
