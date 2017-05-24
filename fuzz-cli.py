@@ -102,12 +102,6 @@ if __name__ == "__main__":
                         help="Timeout before killing program being fuzzed")
     args = parser.parse_args()
 
-    #if len(sys.argv) != 3:
-    #    print "[-] Not enough arguments!"
-    #    print "[-] usage: ./fuzz.py /path/to/binary /path/to/script"
-    #    print "[-] Exiting."
-    #    exit(os.EX_USAGE)
-
     # Make sure target exists and is executable
     progname = args.binary[0]
     if not os.path.isfile(progname) and not os.access(progname, os.X_OK):
