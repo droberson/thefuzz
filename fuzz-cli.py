@@ -66,6 +66,8 @@ def fuzz_test(arguments, timeout=0):
             out, err = process.communicate(timeout=timeout)
         except subprocess32.TimeoutExpired:
             process.terminate()
+
+        # Display summary of fuzzing run
         print " [*] exit:%sstdout:%sstderr:%stest:%s" % \
             (str(process.returncode).ljust(8),
              str(len(out)).ljust(8),
