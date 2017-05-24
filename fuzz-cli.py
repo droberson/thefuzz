@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 
 """
-fuzz.py -- CLI fuzzer
+fuzz-cli.py -- CLI fuzzer
   by Daniel Roberson @dmfroberson
 
 TODO:
 - map signal numbers to names
 - be verbose when potential errors are encountered
-- add timeout option
 - make not so ugly!!
 - logging
 """
@@ -18,8 +17,7 @@ import shlex
 import argparse
 import subprocess32
 
-# TODO: import as, change elsewhere in code
-from constants import *
+import constants as fuzz_constants
 
 
 def fuzz_test(arguments, timeout=0):
@@ -27,31 +25,31 @@ def fuzz_test(arguments, timeout=0):
     fuzz_test() -- iterates through fuzz strings, supplying them to the target
                 -- program. No return value.
     """
-    # Figure out what type of fuzz to be performed
+    # Determine what type of fuzz to be performed
     # TODO: figure out a cleaner way to do this
     fuzz = []
     for arg in arguments:
         # All strings
         if arg == "@@":
-            fuzz_strings = FUZZ_ALL
+            fuzz_strings = fuzz_constants.FUZZ_ALL
             fuzz.append("@@")
             continue
 
         # Overflows
         if arg == "@bof@":
-            fuzz_strings = FUZZ_BOF
+            fuzz_strings = fuzz_constants.FUZZ_BOF
             fuzz.append("@@")
             continue
 
         # Format strings
         if arg == "@fmtstr@":
-            fuzz_strings = FUZZ_FMTSTR
+            fuzz_strings = fuzz_constants.FUZZ_FMTSTR
             fuzz.append("@@")
             continue
 
         # Numbers
         if arg == "@num@":
-            fuzz_strings = FUZZ_NUMBERS
+            fuzz_strings = fuzz_constants.FUZZ_NUMBERS
             fuzz.append("@@")
             continue
 
@@ -143,7 +141,7 @@ if __name__ == "__main__":
 
         # Make sure only one @@ per line
         varcount = 0
-        for variable in FUZZVARS:
+        for variable in fuzz_constants.FUZZVARS:
             varcount += line.count(variable)
         if varcount > 1:
             print "[-] Too many variables on line %d of %s -- Skipping." % \
