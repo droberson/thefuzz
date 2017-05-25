@@ -5,18 +5,48 @@ fuzz-cli.py -- CLI fuzzer
   by Daniel Roberson @dmfroberson
 
 TODO:
-- map signal numbers to names
-- be verbose when potential errors are encountered
-- logging
-- more fuzz strings
+- Environment variable support
+- Test on different platforms:
+  - OSX
+  - FreeBSD
+  - OpenBSD
+  - RPi/OpenWRT
+- Add verbose flag
+- Logging
+- More fuzz strings
+  - Common filenames
+  - Usernames
+  - Directory traversals
+  - Command injection
+  - Globbing
+- Time execution. Will be useful to catch if a command takes longer than normal
 """
 
 import os
 import shlex
+import signal
 import argparse
 import subprocess32
 
 import constants as fuzz_constants
+
+
+def signal_to_human(value):
+    """signal_to_human() -- provide signal name based on subprocess return code
+
+    Args:
+        value (int) - Popen.returncode
+
+    Returns:
+        Signal name if it exists, otherwise the original value provided
+    """
+    signals = {getattr(signal, name) * -1 : name for name in dir(signal) if name.startswith("SIG")}
+
+    if value < 0:
+        if value in signals:
+            return signals[value]
+
+    return value
 
 
 def fuzz_test(arguments, timeout=0):
@@ -69,9 +99,9 @@ def fuzz_test(arguments, timeout=0):
 
         # Display summary of fuzzing run
         print " [*] exit:%sstdout:%sstderr:%stest:%s" % \
-            (str(process.returncode).ljust(8),
-             str(len(out)).ljust(8),
-             str(len(err)).ljust(8),
+            (str(signal_to_human(process.returncode)).ljust(12),
+             str(len(out)).ljust(7),
+             str(len(err)).ljust(7),
              fuzz_string[0])
 
 
