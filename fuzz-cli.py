@@ -9,8 +9,8 @@ TODO:
 - Test on different platforms:
   - OSX
   - FreeBSD
-  - OpenBSD
-  - RPi/OpenWRT
+  - RPi
+  - OpenWRT
 - Add verbose flag
 - Logging
 - More fuzz strings
@@ -84,7 +84,8 @@ def fuzz_test(arguments, timeout=0):
         for arg in arguments:
             if arg == "@@": # Replace this with string
                 current_fuzz.append(fuzz_string[1])
-            current_fuzz.append(arg)
+            else:
+                current_fuzz.append(arg)
 
         process = subprocess32.Popen(args=current_fuzz,
                                      shell=False,
