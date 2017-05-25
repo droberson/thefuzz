@@ -19,7 +19,6 @@ TODO:
   - Directory traversals
   - Command injection
   - Globbing
-- Time execution. Will be useful to catch if a command takes longer than normal
 """
 
 import os
