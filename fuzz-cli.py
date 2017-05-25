@@ -42,9 +42,8 @@ def signal_to_human(value):
     """
     signals = {getattr(signal, name) * -1 : name for name in dir(signal) if name.startswith("SIG")}
 
-    if value < 0:
-        if value in signals:
-            return signals[value]
+    if value < 0 and value in signals:
+        return signals[value]
 
     return value
 
