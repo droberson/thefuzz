@@ -150,12 +150,8 @@ if __name__ == "__main__":
         linecount += 1
         line = line.rstrip()
 
-        # Skip blank lines
-        if len(line) == 0:
-            continue
-
-        # Skip comments
-        if line[:1] == "#":
+        # Skip comments and blank lines
+        if line[:1] == "#" or len(line) == 0:
             continue
 
         # Make sure only one @@ per line
