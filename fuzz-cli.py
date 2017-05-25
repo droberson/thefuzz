@@ -23,6 +23,7 @@ TODO:
 """
 
 import os
+import time
 import shlex
 import signal
 import argparse
@@ -86,22 +87,26 @@ def fuzz_test(arguments, timeout=0):
                 current_fuzz.append(fuzz_string[1])
             current_fuzz.append(arg)
 
-            process = subprocess32.Popen(args=current_fuzz,
-                                         shell=False,
-                                         stdout=subprocess32.PIPE,
-                                         stderr=subprocess32.PIPE)
+        process = subprocess32.Popen(args=current_fuzz,
+                                     shell=False,
+                                     stdout=subprocess32.PIPE,
+                                     stderr=subprocess32.PIPE)
+
         out = ""
         err = ""
+        time_start = time.time()
         try:
             out, err = process.communicate(timeout=timeout)
         except subprocess32.TimeoutExpired:
             process.terminate()
 
+        time_end = time.time() - time_start
         # Display summary of fuzzing run
-        print " [*] exit:%sstdout:%sstderr:%stest:%s" % \
-            (str(signal_to_human(process.returncode)).ljust(12),
+        print " [*] exit:%sstdout:%sstderr:%stime:%.3f   test:%s" % \
+            (str(signal_to_human(process.returncode)).ljust(8),
              str(len(out)).ljust(7),
              str(len(err)).ljust(7),
+             time_end,
              fuzz_string[0])
 
 
