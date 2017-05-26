@@ -169,7 +169,7 @@ if __name__ == "__main__":
         fuzz_args.insert(0, progname)
 
         # Finally, fuzz the target
-        print "[+] %s" % fuzz_args
+        print "[+] Fuzzing: %s" % " ".join(fuzz_args)
         fuzz_test(fuzz_args, timeout=args.timeout)
         print
 
