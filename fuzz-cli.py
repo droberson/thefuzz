@@ -101,7 +101,7 @@ def fuzz_test(arguments, timeout=0):
 
         time_end = time.time() - time_start
         # Display summary of fuzzing run
-        print " [*] exit:%sstdout:%sstderr:%stime:%.3f   test:%s" % \
+        print " [*] exit:%sstdout:%sstderr:%stime:%.4f   test:%s" % \
             (str(signal_to_human(process.returncode)).ljust(8),
              str(len(out)).ljust(7),
              str(len(err)).ljust(7),
