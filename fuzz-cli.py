@@ -111,7 +111,7 @@ def fuzz_test(arguments, timeout=0, verbose=0):
              time_elapsed,
              fuzz_string[0])
 
-        if verbose == True:
+        if verbose is True:
             print "  [*] stdout: %s" % out
             print "  [*] stderr: %s" % err
 
@@ -168,8 +168,8 @@ if __name__ == "__main__":
 
         # Make sure only one @@ per line
         varcount = 0
-        for variable in fuzz_constants.FUZZ_VARS:
-            varcount += line.count(variable[0])
+        for var in fuzz_constants.FUZZ_VARS:
+            varcount += line.count(var[0])
         if varcount > 1:
             print "[-] Too many variables on line %d of %s -- Skipping." % \
                 (linecount, testfile)
