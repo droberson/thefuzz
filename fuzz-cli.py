@@ -116,7 +116,9 @@ def fuzz_test(arguments, timeout=0, verbose=0):
             print "  [*] stderr: %s" % err
 
 
-if __name__ == "__main__":
+def main():
+    """main() function
+    """
     print "[+] fuzz-cli.py -- by Daniel Roberson @dmfroberson\n"
 
     # Parse CLI arguments
@@ -188,3 +190,7 @@ if __name__ == "__main__":
     # All done.
     print "[+] Pledge your allegiance to Shadaloo and I will let you live!"
     print "[+] Done"
+
+
+if __name__ == "__main__":
+    main()
