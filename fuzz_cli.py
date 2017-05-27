@@ -27,6 +27,8 @@ import subprocess32
 
 import constants as fuzz_constants
 
+LOGGING = False
+LOGFILE = "fuzz_cli.out"
 
 def signal_to_human(value):
     """signal_to_human() -- provide signal name based on subprocess return code
@@ -43,6 +45,22 @@ def signal_to_human(value):
         return signals[value]
 
     return value
+
+
+def xprint(buf):
+    """xprint() -- wrapper for print function that logs if logging is enabled
+
+    Args:
+        buf (str) - String to print/log
+
+    Returns:
+        Nothing.
+    """
+    if LOGGING:
+        with open(LOGFILE, "a") as logfile:
+            logfile.write(buf + "\n")
+
+    print buf
 
 
 def fuzz_test(arguments, timeout=0, verbose=0):
@@ -101,25 +119,27 @@ def fuzz_test(arguments, timeout=0, verbose=0):
 
         # Display summary of fuzzing run
         time_elapsed = time.time() - time_start
-        print " [*] exit:%sstdout:%sstderr:%stime:%.4f   test:%s" % \
+        xprint(" [*] exit:%sstdout:%sstderr:%stime:%.4f   test:%s" % \
             (str(signal_to_human(process.returncode)).ljust(8),
              str(len(out)).ljust(7),
              str(len(err)).ljust(7),
              time_elapsed,
-             fuzz_string[0])
+             fuzz_string[0]))
 
         if verbose is True:
-            print "  [*] stdout: %s" % out
-            print "  [*] stderr: %s" % err
+            xprint("  [*] stdout: %s" % out)
+            xprint("  [*] stderr: %s" % err)
 
 
 def main():
     """main() function
     """
-    print "[+] fuzz_cli.py -- by Daniel Roberson @dmfroberson\n"
+    global LOGGING
+    global LOGFILE
+    xprint("[+] fuzz_cli.py -- by Daniel Roberson @dmfroberson\n")
 
     # Parse CLI arguments
-    description = "example: ./fuzz_cli.py [-v] [-t <timeout>] <binary> <script>"
+    description = "example: ./fuzz-cli.py [-v] [-t <timeout>] <binary> <script>"
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("binary",
                         nargs="+",
@@ -138,23 +158,41 @@ def main():
                         required=False,
                         action="store_true",
                         help="Toggle verbose output")
+    parser.add_argument("-l",
+                        "--logfile",
+                        required=False,
+                        help="Specify logfile to save output.")
     args = parser.parse_args()
 
     # Make sure target exists and is executable
     progname = args.binary[0]
     if not os.path.isfile(progname) and not os.access(progname, os.X_OK):
-        print "[-] Specified program \"%s\" is not executable." % progname
-        print "[-] Exiting."
+        xprint("[-] Specified program \"%s\" is not executable." % progname)
+        xprint("[-] Exiting.")
         exit(os.EX_USAGE)
 
     # Make sure script is readable
     scriptfile = args.script[0]
     if not os.access(scriptfile, os.R_OK):
-        print "[-] Specified script \"%s\" is not readable." % scriptfile
-        print "[-] Exiting."
+        xprint("[-] Specified script \"%s\" is not readable." % scriptfile)
+        xprint("[-] Exiting.")
         exit(os.EX_USAGE)
 
-    print "[+] Fuzzing %s with tests defined in %s\n" % (progname, scriptfile)
+    # Make sure logfile is writable and set up logging
+    if args.logfile:
+        LOGFILE = args.logfile
+        try:
+            logfile = open(LOGFILE, "w+")
+        except IOError, err:
+            xprint("[-] Could not open logfile for writing: %s" % str(err))
+            xprint("[-] Exiting.")
+            exit(os.EX_OSFILE)
+
+        logfile.close()
+        print "toggling logging"
+        LOGGING = True
+
+    xprint("[+] Fuzzing %s with tests defined in %s\n" % (progname, scriptfile))
 
     linecount = 0
     for line in open(scriptfile, "r"):
@@ -170,9 +208,9 @@ def main():
         for var in fuzz_constants.FUZZ_VARS:
             varcount += line.count(var[0])
         if varcount > 1:
-            print "[-] Too many variables on line %d of %s -- Skipping." % \
-                (linecount, scriptfile)
-            print "    %s\n" % line
+            xprint("[-] Too many variables on line %d of %s -- Skipping." % \
+                (linecount, scriptfile))
+            xprint("    %s\n" % line)
             continue
 
         # Create argv[] for Popen()
@@ -180,13 +218,13 @@ def main():
         fuzz_args.insert(0, progname)
 
         # Finally, fuzz the target
-        print "[+] Fuzzing: %s" % " ".join(fuzz_args)
+        xprint("[+] Fuzzing: %s" % " ".join(fuzz_args))
         fuzz_test(fuzz_args, timeout=args.timeout, verbose=args.verbose)
-        print
+        xprint("")
 
     # All done.
-    print "[+] Pledge your allegiance to Shadaloo and I will let you live!"
-    print "[+] Done"
+    xprint("[+] Pledge your allegiance to Shadaloo and I will let you live!")
+    xprint("[+] Done")
 
 
 if __name__ == "__main__":
