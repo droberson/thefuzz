@@ -8,9 +8,6 @@ TODO:
 - Environment variable support
 - Interactive program support (pexpect?)
 - Test on different platforms:
-  - OSX
-  - FreeBSD
-  - RPi
   - OpenWRT
 - Logging
 - More fuzz strings
@@ -151,16 +148,16 @@ def main():
         exit(os.EX_USAGE)
 
     # Make sure script is readable
-    testfile = args.script[0]
-    if not os.access(testfile, os.R_OK):
-        print "[-] Specified script \"%s\" is not readable." % testfile
+    scriptfile = args.script[0]
+    if not os.access(scriptfile, os.R_OK):
+        print "[-] Specified script \"%s\" is not readable." % scriptfile
         print "[-] Exiting."
         exit(os.EX_USAGE)
 
-    print "[+] Fuzzing %s with tests defined in %s\n" % (progname, testfile)
+    print "[+] Fuzzing %s with tests defined in %s\n" % (progname, scriptfile)
 
     linecount = 0
-    for line in open(testfile, "r"):
+    for line in open(scriptfile, "r"):
         linecount += 1
         line = line.rstrip()
 
@@ -174,7 +171,7 @@ def main():
             varcount += line.count(var[0])
         if varcount > 1:
             print "[-] Too many variables on line %d of %s -- Skipping." % \
-                (linecount, testfile)
+                (linecount, scriptfile)
             print "    %s\n" % line
             continue
 
