@@ -9,7 +9,6 @@ TODO:
 - Interactive program support (pexpect?)
 - Test on different platforms:
   - OpenWRT
-- Logging
 - More fuzz strings
   - Common filenames
   - Usernames
