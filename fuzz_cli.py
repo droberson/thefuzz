@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-fuzz-cli.py -- CLI fuzzer
+fuzz_cli.py -- CLI fuzzer
   by Daniel Roberson @dmfroberson
 
 TODO:
@@ -119,10 +119,10 @@ def fuzz_test(arguments, timeout=0, verbose=0):
 def main():
     """main() function
     """
-    print "[+] fuzz-cli.py -- by Daniel Roberson @dmfroberson\n"
+    print "[+] fuzz_cli.py -- by Daniel Roberson @dmfroberson\n"
 
     # Parse CLI arguments
-    description = "example: ./fuzz-cli.py [-v] [-t <timeout>] <binary> <script>"
+    description = "example: ./fuzz_cli.py [-v] [-t <timeout>] <binary> <script>"
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("binary",
                         nargs="+",
