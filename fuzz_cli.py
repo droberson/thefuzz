@@ -165,7 +165,7 @@ def main():
         line = line.rstrip()
 
         # Skip comments and blank lines
-        if line[:1] == "#" or len(line) == 0:
+        if line[:1] == "#" or not line:
             continue
 
         # Make sure only one @@ per line
