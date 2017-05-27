@@ -6,6 +6,7 @@ fuzz-cli.py -- CLI fuzzer
 
 TODO:
 - Environment variable support
+- Interactive program support (pexpect?)
 - Test on different platforms:
   - OSX
   - FreeBSD
