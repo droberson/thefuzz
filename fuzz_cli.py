@@ -188,7 +188,6 @@ def main():
             exit(os.EX_OSFILE)
 
         logfile.close()
-        print "toggling logging"
         LOGGING = True
 
     xprint("[+] Fuzzing %s with tests defined in %s\n" % (progname, scriptfile))
