@@ -32,4 +32,13 @@ to enjoy the savage police officer with a nightstick ASCII art.
 
 # What's included?
 
-- Not much yet!
+- fuzz_cli.py -- a CLI fuzzer
+
+	$ ./fuzz_cli.py tests/getopt scripts/getopt.fuzz -v
+
+To disable the free() warning in glibc when you trigger a heap overflow:
+
+	$ MALLOC_CHECK_=0 ./fuzz_cli.py tests/getopt scripts/getopt.fuzz
+
+See scripts/ directory for examples of scripts.
+
