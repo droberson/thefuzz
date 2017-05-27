@@ -11,7 +11,6 @@ TODO:
   - FreeBSD
   - RPi
   - OpenWRT
-- Add verbose flag
 - Logging
 - More fuzz strings
   - Common filenames
@@ -48,7 +47,7 @@ def signal_to_human(value):
     return value
 
 
-def fuzz_test(arguments, timeout=0):
+def fuzz_test(arguments, timeout=0, verbose=0):
     """fuzz_test() -- fuzz tests a program with specified types of strings
 
     Args:
@@ -58,6 +57,8 @@ def fuzz_test(arguments, timeout=0):
         timeout (int)    - Timeout in seconds to allow a program to run. A value
                            of 0 disables the timeout, so the programs must exit
                            on their own or be closed by the user.
+        verbose (int)    - Toggle verbose output. A value of 1 will output
+                           extra data.
 
     Returns:
         Nothing.
@@ -108,12 +109,16 @@ def fuzz_test(arguments, timeout=0):
              time_end,
              fuzz_string[0])
 
+        if verbose == True:
+            print "  [*] stdout: %s" % out
+            print "  [*] stderr: %s" % err
+
 
 if __name__ == "__main__":
     print "[+] fuzz-cli.py -- by Daniel Roberson @dmfroberson\n"
 
     # Parse CLI arguments
-    description = "example: ./fuzz-cli.py -t <timeout> <binary> <script>"
+    description = "example: ./fuzz-cli.py [-v] [-t <timeout>] <binary> <script>"
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("binary",
                         nargs="+",
@@ -127,6 +132,11 @@ if __name__ == "__main__":
                         type=float,
                         required=False,
                         help="Timeout before killing program being fuzzed")
+    parser.add_argument("-v",
+                        "--verbose",
+                        required=False,
+                        action="store_true",
+                        help="Toggle verbose output")
     args = parser.parse_args()
 
     # Make sure target exists and is executable
@@ -170,7 +180,7 @@ if __name__ == "__main__":
 
         # Finally, fuzz the target
         print "[+] Fuzzing: %s" % " ".join(fuzz_args)
-        fuzz_test(fuzz_args, timeout=args.timeout)
+        fuzz_test(fuzz_args, timeout=args.timeout, verbose=args.verbose)
         print
 
     # All done.
