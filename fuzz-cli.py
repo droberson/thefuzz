@@ -96,18 +96,19 @@ def fuzz_test(arguments, timeout=0, verbose=0):
         out = ""
         err = ""
         time_start = time.time()
+
         try:
             out, err = process.communicate(timeout=timeout)
         except subprocess32.TimeoutExpired:
             process.terminate()
 
-        time_end = time.time() - time_start
         # Display summary of fuzzing run
+        time_elapsed = time.time() - time_start
         print " [*] exit:%sstdout:%sstderr:%stime:%.4f   test:%s" % \
             (str(signal_to_human(process.returncode)).ljust(8),
              str(len(out)).ljust(7),
              str(len(err)).ljust(7),
-             time_end,
+             time_elapsed,
              fuzz_string[0])
 
         if verbose == True:
