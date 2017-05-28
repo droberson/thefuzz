@@ -79,26 +79,25 @@ def fuzz_test(arguments, timeout=0, verbose=0):
         Nothing.
     """
     # Determine what type of fuzz to be performed, based on variable type
-    fuzz = []
-    for arg in arguments:
-        if arg[:1] == "@":
-            count = 0
-            for variable in fuzz_constants.FUZZ_VARS:
-                count += 1
-                if arg == variable[0]:
-                    fuzz_strings = fuzz_constants.FUZZ_VARS[count - 1][1]
-                    fuzz.append("@@")
-                    continue
+    count = 0
+    fuzz_strings = ()
+    for variable in fuzz_constants.FUZZ_VARS:
+        count += 1
+        if any(variable[0] in s for s in arguments):
+            arguments = [x.replace(variable[0], "@@") for x in arguments]
+            fuzz_strings = fuzz_constants.FUZZ_VARS[count - 1][1]
+            break
 
-        # Add non-variable CLI argument
-        fuzz.append(arg)
+    if not fuzz_strings:
+        xprint("[-] Invalid variable name in arguments: %s" % arguments)
+        return
 
     # Perform the actual fuzzing
     for fuzz_string in fuzz_strings:
         current_fuzz = []
         for arg in arguments:
-            if arg == "@@": # Replace this with string
-                current_fuzz.append(fuzz_string[1])
+            if "@@" in arg: # Replace this with string
+                current_fuzz.append(arg.replace("@@", fuzz_string[1]))
             else:
                 current_fuzz.append(arg)
 
@@ -129,15 +128,8 @@ def fuzz_test(arguments, timeout=0, verbose=0):
             xprint("  [*] stdout: %s" % out)
             xprint("  [*] stderr: %s" % err)
 
-
-def main():
-    """main() function
-    """
-    global LOGGING
-    global LOGFILE
-    xprint("[+] fuzz_cli.py -- by Daniel Roberson @dmfroberson\n")
-
-    # Parse CLI arguments
+def parse_cli():
+        # Parse CLI arguments
     description = "example: ./fuzz-cli.py [-v] [-t <timeout>] <binary> <script>"
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("binary",
@@ -162,6 +154,17 @@ def main():
                         required=False,
                         help="Specify logfile to save output.")
     args = parser.parse_args()
+    return args
+
+
+def main():
+    """main() function
+    """
+    global LOGGING
+    global LOGFILE
+    xprint("[+] fuzz_cli.py -- by Daniel Roberson @dmfroberson\n")
+
+    args = parse_cli()
 
     # Make sure target exists and is executable
     progname = args.binary[0]
