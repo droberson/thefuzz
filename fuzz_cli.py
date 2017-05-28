@@ -128,6 +128,7 @@ def fuzz_test(arguments, timeout=0, verbose=0):
             xprint("  [*] stdout: %s" % out)
             xprint("  [*] stderr: %s" % err)
 
+
 def parse_cli():
     """parse_cli() -- parses cli input and sets variables accordingly"""
     description = "example: ./fuzz-cli.py [-v] [-t <timeout>] <binary> <script>"
