@@ -5,7 +5,7 @@
 @@ @@ "blah blah"
 
 # fuzz argv[1]:
-@@
+xx@bf@
 
 # fuzz argv[2]:
 x @@
