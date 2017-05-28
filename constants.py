@@ -139,5 +139,5 @@ FUZZ_VARS = (
     ("@@", FUZZ_ALL),        # All types
     ("@num@", FUZZ_NUMBERS), # Numbers
     ("@bof@", FUZZ_BOF),     # Overflows
-    ("@fmtstr", FUZZ_FMTSTR) # Format strings
+    ("@fmtstr@", FUZZ_FMTSTR) # Format strings
 )
