@@ -196,6 +196,8 @@ def main():
 
     xprint("[+] Fuzzing %s with tests defined in %s\n" % (progname, scriptfile))
 
+    # Rework this section into a function and combine relevant things from
+    # fuzz_test() regarding parsing the lines.
     linecount = 0
     for line in open(scriptfile, "r"):
         linecount += 1
