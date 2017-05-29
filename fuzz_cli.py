@@ -155,7 +155,14 @@ def fuzz_test(arguments, timeout=0, verbose=0):
 
 
 def parse_cli():
-    """parse_cli() -- parses cli input and sets variables accordingly"""
+    """parse_cli() -- parses cli input and sets variables accordingly
+
+    Args:
+        None
+
+    Returns:
+        ArgumentParser namespace relevant to supplied CLI options
+    """
     description = "example: ./fuzz-cli.py [-v] [-t <timeout>] <binary> <script>"
     parser = argparse.ArgumentParser(description=description)
     parser.add_argument("binary",
@@ -179,6 +186,7 @@ def parse_cli():
                         "--logfile",
                         required=False,
                         help="Specify logfile to save output.")
+
     args = parser.parse_args()
     return args
 
