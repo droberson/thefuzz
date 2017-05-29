@@ -61,6 +61,28 @@ def xprint(buf):
     print buf
 
 
+def get_fuzz_strings(arguments):
+    """get_fuzz_strings() -- populate a tuple with test strings
+
+    Args:
+        arguments (list) - list of arguments program expects to run.
+
+    Returns:
+        A tuple of test strings in this format: ("description", "actual string)
+    """
+    count = 0
+    fuzz_strings = ()
+
+    for variable in fuzz_constants.FUZZ_VARS:
+        count += 1
+        if any(variable[0] in s for s in arguments):
+            arguments = [x.replace(variable[0], "@@") for x in arguments]
+            fuzz_strings = fuzz_constants.FUZZ_VARS[count -1][1]
+            break
+
+    return fuzz_strings
+
+
 def fuzz_test(arguments, timeout=0, verbose=0):
     """fuzz_test() -- fuzz tests a program with specified types of strings
 
@@ -77,19 +99,8 @@ def fuzz_test(arguments, timeout=0, verbose=0):
     Returns:
         Nothing.
     """
-    # Determine what type of fuzz to be performed, based on variable type
-    count = 0
-    fuzz_strings = ()
-    for variable in fuzz_constants.FUZZ_VARS:
-        count += 1
-        if any(variable[0] in s for s in arguments):
-            arguments = [x.replace(variable[0], "@@") for x in arguments]
-            fuzz_strings = fuzz_constants.FUZZ_VARS[count - 1][1]
-            break
-
-    if not fuzz_strings:
-        xprint(" [-] Nothing to fuzz: %s" % arguments)
-        return
+    # Get fuzz strings
+    fuzz_strings = get_fuzz_strings(arguments)
 
     # Perform the actual fuzzing
     valid_line = True
@@ -131,12 +142,11 @@ def fuzz_test(arguments, timeout=0, verbose=0):
             process.terminate()
 
         # Display summary of fuzzing run
-        time_elapsed = time.time() - time_start
         xprint(" [*] exit:%sstdout:%sstderr:%stime:%.4f   test:%s" % \
             (str(signal_to_human(process.returncode)).ljust(8),
              str(len(out)).ljust(7),
              str(len(err)).ljust(7),
-             time_elapsed,
+             time.time() - time_start,
              fuzz_string[0]))
 
         if verbose is True:
