@@ -3,8 +3,8 @@
 
 # Environment variables can be declared with ENV: prefix.
 ENV:HOME="/home/daniel"
-
 ENV:HOME="@@ asdf asdf asdf asdf" ENV:PATH="/bin" ENV:asdf argv1 argv2
+ENV:HOME="@@" ENV:PATH="/bin"
 
 # Only one @variable@ is allowed per line. The following will be skipped
 @@ @@ "blah blah"
