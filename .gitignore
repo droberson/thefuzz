@@ -4,4 +4,5 @@ tests/divzero
 tests/stderr
 tests/sleep
 tests/getopt
+tests/getenv
 *.pyc
