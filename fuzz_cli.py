@@ -5,7 +5,6 @@ fuzz_cli.py -- CLI fuzzer
   by Daniel Roberson @dmfroberson
 
 TODO:
-- Environment variable support
 - Interactive program support (pexpect?)
 - Test on different platforms:
   - OpenWRT
@@ -89,20 +88,36 @@ def fuzz_test(arguments, timeout=0, verbose=0):
             break
 
     if not fuzz_strings:
-        xprint("[-] Invalid variable name in arguments: %s" % arguments)
+        xprint(" [-] Nothing to fuzz: %s" % arguments)
         return
 
     # Perform the actual fuzzing
+    valid_line = True
     for fuzz_string in fuzz_strings:
+        environment = {}
         current_fuzz = []
+
         for arg in arguments:
             if "@@" in arg: # Replace this with string
                 current_fuzz.append(arg.replace("@@", fuzz_string[1]))
+            if arg.startswith("ENV:"):
+                try:
+                    env_var, env_val = arg[4:].split("=")
+                except ValueError:
+                    xprint("[-] Invalid environment variable syntax: %s" % arg)
+                    valid_line = False
+                    break
+
+                environment[env_var] = env_val
             else:
                 current_fuzz.append(arg)
 
+        if valid_line is False:
+            break
+
         process = subprocess32.Popen(args=current_fuzz,
                                      shell=False,
+                                     env=environment,
                                      stdout=subprocess32.PIPE,
                                      stderr=subprocess32.PIPE)
 
