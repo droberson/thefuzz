@@ -22,5 +22,5 @@ getenv:
 	gcc -o getenv getenv.c
 
 clean:
-	rm -rf buf divzero fmt sleep stderr *~
+	rm -rf buf divzero fmt sleep stderr getenv getopt *~
 
