@@ -1,6 +1,11 @@
 # This is a comment. Lines beginning with pound character as well as blank
 # lines are skipped.
 
+# Environment variables can be declared with ENV: prefix.
+ENV:HOME="/home/daniel"
+
+ENV:HOME="@@ asdf asdf asdf asdf" ENV:PATH="/bin" ENV:asdf argv1 argv2
+
 # Only one @variable@ is allowed per line. The following will be skipped
 @@ @@ "blah blah"
 
