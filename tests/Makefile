@@ -1,4 +1,4 @@
-all: buf divzero fmt sleep stderr getopt
+all: buf divzero fmt sleep stderr getopt getenv
 
 buf:
 	gcc -o buf buf.c
@@ -17,6 +17,9 @@ stderr:
 
 getopt:
 	gcc -o getopt getopt.c
+
+getenv:
+	gcc -o getenv getenv.c
 
 clean:
 	rm -rf buf divzero fmt sleep stderr *~
