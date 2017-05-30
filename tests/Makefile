@@ -1,4 +1,4 @@
-all: buf divzero fmt sleep stderr getopt getenv
+all: buf divzero fmt sleep stderr getopt getenv ld_preload-get-vars
 
 buf:
 	gcc -o buf buf.c
@@ -21,6 +21,10 @@ getopt:
 getenv:
 	gcc -o getenv getenv.c
 
+ld_preload-get-vars:
+	gcc -fPIC -c ld_preload-get-vars.c -o ld_preload-get-vars.o
+	gcc -shared -o ld_preload-get-vars.so ld_preload-get-vars.o
+
 clean:
-	rm -rf buf divzero fmt sleep stderr getenv getopt *~
+	rm -rf *.o *.so buf divzero fmt sleep stderr getenv getopt *~
 
