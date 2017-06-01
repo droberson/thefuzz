@@ -115,7 +115,7 @@ int getopt_long_only(int argc, char * const argv[], const char *optstring,
   int i;
 
 
-  printf("# getopt_long() optstring = %s\n", optstring);
+  printf("# getopt_long_only() optstring = %s\n", optstring);
 
   for (i = 0; optstring[i]; i++) {
     if (optstring[i + 1] == ':') {
