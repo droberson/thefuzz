@@ -5,31 +5,27 @@
  * environment variable names and the optstrings and long option flags for
  * getopt() functions.
  *
- * usage: $ LD_PRELOAD="./ld_preload-get-vars" /path/to/binary
+ * usage: $ LD_PRELOAD="./ld_preload-get-vars.so" /path/to/binary
  *
- * example:
- *  % LD_PRELOAD="./ld_preload-get-vars.so" /bin/mv
- *  getenv(SIMPLE_BACKUP_SUFFIX)
- *  getopt_long(bfint:uvS:TZ)
- *   -> --backup -- has_arg: 2
- *   -> --context -- has_arg: 0
- *   -> --force -- has_arg: 0
- *   -> --interactive -- has_arg: 0
- *   -> --no-clobber -- has_arg: 0
- *   -> --no-target-directory -- has_arg: 0
- *   -> --strip-trailing-slashes -- has_arg: 0
- *   -> --suffix -- has_arg: 1
- *   -> --target-directory -- has_arg: 1
- *   -> --update -- has_arg: 0
- *   -> --verbose -- has_arg: 0
- *   -> --help -- has_arg: 0
- *   -> --version -- has_arg: 0
- *  /bin/mv: missing file operand
- *  Try '/bin/mv --help' for more information.
-
+ * For automated scripting:
+ *
+ * LD_PRELOAD="./ld_preload-get-vars.so" bin |tac |sed -n '/End\ of\ /,$p' |tac
+ *
+ * The above example can probably be cleaned up, but you can redirect its
+ * output to a file, then use it as a script to fuzz a program against.
  */  
 #include <stdio.h>
 #include <getopt.h>
+
+/* constructor to print out header
+ */
+void begin (void) __attribute__((constructor));
+
+void begin(void) {
+  printf("###\n");
+  printf("### Auto-generated with ld_preload-get-vars.so\n");
+  printf("###\n\n");
+}
 
 
 /* getenv()
@@ -37,7 +33,8 @@
  */
 char *getenv(const char *name) {
   printf("# %s environment variable\n", name);
-  printf("ENV:%s=\"@@\"\n\n", name);
+  printf("ENV:%s=\"@@\"\n", name);
+  printf("# End of %s section\n\n", name);
 
   return NULL;
 }
@@ -53,7 +50,7 @@ int getopt(int argc, char * const argv[], const char *optstring) {
 
   for (i = 0; optstring[i]; i++) {
     if (optstring[i + 1] == ':') {
-      printf("#-%c flag\n", optstring[i]);
+      printf("#-%c <flag>\n", optstring[i]);
       printf("-%c @@\n\n", optstring[i]);
       i++;
     } else {
@@ -75,12 +72,16 @@ int getopt_long(int argc, char * const argv[], const char *optstring,
 
 
   for (i = 0; longopts[i].name; i++) {
+    printf("# Start of --%s section\n", longopts[i].name);
+
     if (longopts[i].has_arg) {
-      printf("# --%s flag\n", longopts[i].name);
+      printf("# --%s <flag>\n", longopts[i].name);
       printf("--%s @@\n\n", longopts[i].name);
     } else {
       printf("# --%s takes no arguments\n", longopts[i].name);
     }
+
+    printf("# End of --%s flag section\n\n", longopts[i].name);
   }
 
   return -1;
@@ -97,12 +98,16 @@ int getopt_long_only(int argc, char * const argv[], const char *optstring,
 
 
   for (i = 0; longopts[i].name; i++) {
+    printf("# Start of --%s section\n", longopts[i].name);
+
     if (longopts[i].has_arg) {
-      printf("# --%s flag\n", longopts[i].name);
-      printf("--%s @@\n\n", longopts[i].name);
+      printf("# --%s <flag>\n", longopts[i].name);
+      printf("--%s @@\n", longopts[i].name);
     } else {
       printf("# --%s takes no arguments\n", longopts[i].name);
     }
+
+    printf("# End of --%s flag section\n\n", longopts[i].name);
   }
 
   return -1;
