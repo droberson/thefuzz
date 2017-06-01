@@ -52,12 +52,14 @@ int getopt(int argc, char * const argv[], const char *optstring) {
 
   for (i = 0; optstring[i]; i++) {
     if (optstring[i + 1] == ':') {
-      printf("#-%c <flag>\n", optstring[i]);
+      printf("# -%c <flag>\n", optstring[i]);
       printf("-%c @@\n\n", optstring[i]);
       i++;
     } else {
       printf("# -%c takes no arguments\n", optstring[i]);
     }
+
+    printf("# End of -%c section\n\n", optstring[i]);
   }
 
   return -1;
@@ -74,6 +76,18 @@ int getopt_long(int argc, char * const argv[], const char *optstring,
 
 
   printf("# getopt_long() optstring = %s\n", optstring);
+
+  for (i = 0; optstring[i]; i++) {
+    if (optstring[i + 1] == ':') {
+      printf("# -%c <flag>\n", optstring[i]);
+      printf("-%c @@\n", optstring[i]);
+      i++;
+    } else {
+      printf("# -%c takes no arguments\n", optstring[i]);
+    }
+
+    printf("# End of -%c section\n\n", optstring[i]);
+  }
 
   for (i = 0; longopts[i].name; i++) {
     printf("# Start of --%s section\n", longopts[i].name);
@@ -102,6 +116,18 @@ int getopt_long_only(int argc, char * const argv[], const char *optstring,
 
 
   printf("# getopt_long() optstring = %s\n", optstring);
+
+  for (i = 0; optstring[i]; i++) {
+    if (optstring[i + 1] == ':') {
+      printf("# -%c <flag>\n", optstring[i]);
+      printf("-%c @@\n", optstring[i]);
+      i++;
+    } else {
+      printf("# -%c takes no arguments\n", optstring[i]);
+    }
+ 
+    printf("# End of -%c section\n\n", optstring[i]);
+  }
 
   for (i = 0; longopts[i].name; i++) {
     printf("# Start of --%s section\n", longopts[i].name);
