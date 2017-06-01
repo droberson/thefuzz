@@ -48,6 +48,8 @@ int getopt(int argc, char * const argv[], const char *optstring) {
   int i;
 
 
+  printf("# getopt() optstring = %s\n", optstring);
+
   for (i = 0; optstring[i]; i++) {
     if (optstring[i + 1] == ':') {
       printf("#-%c <flag>\n", optstring[i]);
@@ -70,6 +72,8 @@ int getopt_long(int argc, char * const argv[], const char *optstring,
                 const struct option *longopts, int *longindex) {
   int i;
 
+
+  printf("# getopt_long() optstring = %s\n", optstring);
 
   for (i = 0; longopts[i].name; i++) {
     printf("# Start of --%s section\n", longopts[i].name);
@@ -96,6 +100,8 @@ int getopt_long_only(int argc, char * const argv[], const char *optstring,
                      const struct option *longopts, int *longindex) {
   int i;
 
+
+  printf("# getopt_long() optstring = %s\n", optstring);
 
   for (i = 0; longopts[i].name; i++) {
     printf("# Start of --%s section\n", longopts[i].name);
