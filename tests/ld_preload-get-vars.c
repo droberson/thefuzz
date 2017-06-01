@@ -32,41 +32,78 @@
 #include <getopt.h>
 
 
+/* getenv()
+ * -- Intercept getenv() and print in ENV:VARNAME="@@" format
+ */
 char *getenv(const char *name) {
-  printf("getenv(%s)\n", name);
+  printf("# %s environment variable\n", name);
+  printf("ENV:%s=\"@@\"\n\n", name);
 
   return NULL;
 }
 
+
+/* getopt()
+ * -- Intercept getopt() and print out flags in "-f @@" format if they take
+ *    an argument. Otherwise, Leave a comment.
+ */
 int getopt(int argc, char * const argv[], const char *optstring) {
-  printf("getopt(%s)\n", optstring);
+  int i;
+
+
+  for (i = 0; optstring[i]; i++) {
+    if (optstring[i + 1] == ':') {
+      printf("#-%c flag\n", optstring[i]);
+      printf("-%c @@\n\n", optstring[i]);
+      i++;
+    } else {
+      printf("# -%c takes no arguments\n", optstring[i]);
+    }
+  }
 
   return -1;
 }
- 
+
+
+/* getopt_long()
+ * -- Intercept getopt_long() and print in "--flag @@" format if the flag
+ *    accepts an argument. Otherwise, leave a comment.
+ */
 int getopt_long(int argc, char * const argv[], const char *optstring,
                 const struct option *longopts, int *longindex) {
   int i;
 
 
-  printf("getopt_long(%s)\n", optstring);
-
-  for (i = 0; longopts[i].name; i++)
-    printf(" -> --%s -- has_arg: %d\n", longopts[i].name, longopts[i].has_arg);
+  for (i = 0; longopts[i].name; i++) {
+    if (longopts[i].has_arg) {
+      printf("# --%s flag\n", longopts[i].name);
+      printf("--%s @@\n\n", longopts[i].name);
+    } else {
+      printf("# --%s takes no arguments\n", longopts[i].name);
+    }
+  }
 
   return -1;
 }
 
+
+/* getopt_long_only()
+ * -- Intercept getopt_long_only() and print in "--flag @@" format if the flag
+ *    accepts an argument. Otherwise, leave a comment.
+ */
 int getopt_long_only(int argc, char * const argv[], const char *optstring,
                      const struct option *longopts, int *longindex) {
   int i;
 
 
-  printf("getopt_long_only(%s)\n", optstring);
-
-  for (i = 0; longopts[i].name; i++)
-    printf(" -> --%s -- has_arg: %d\n", longopts[i].name, longopts[i].has_arg);
+  for (i = 0; longopts[i].name; i++) {
+    if (longopts[i].has_arg) {
+      printf("# --%s flag\n", longopts[i].name);
+      printf("--%s @@\n\n", longopts[i].name);
+    } else {
+      printf("# --%s takes no arguments\n", longopts[i].name);
+    }
+  }
 
   return -1;
 }
-
