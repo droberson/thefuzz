@@ -1,9 +1,18 @@
 """
 fuzz string constants.
 
-Many of these were gleaned from the fuzzdb project
+Many of these were gleaned from the fuzzdb project and the big list of naughty
+strings. Their respective project pages are here:
+
     https://github.com/fuzzdb-project/fuzzdb
+    https://github.com/minimaxir/big-list-of-naughty-strings
 """
+
+# These are formatted as follows:
+# ("description", "actual string")
+#
+# "description" id displayed on output, "actual string" is sent during fuzzing
+
 
 # Numbers
 FUZZ_NUMBERS = (
@@ -30,6 +39,27 @@ FUZZ_NUMBERS = (
     ("0x80000000", "0x80000000"),
     ("0xfffffffe", "0xfffffffe"),
     ("0xffffffff", "0xffffffff")
+)
+
+# Reserved strings
+FUZZ_RESERVED = (
+    ("hasOwnProperty", "hasOwnProperty"),
+    ("true", "true"),
+    ("True", "True"),
+    ("TRUE", "TRUE"),
+    ("false", "false"),
+    ("False", "False"),
+    ("FALSE", "FALSE"),
+    ("null", "null"),
+    ("NULL", "NULL"),
+    ("(null)", "(null"),
+    ("nil", "nil"),
+    ("NIL", "NIL"),
+    ("None", "None"),
+    ("undefined", "undefined"),
+    ("undef", "undef"),
+    ("\\", "\\"),
+    ("\\\\", "\\\\")
 )
 
 # Overflows
@@ -132,12 +162,13 @@ FUZZ_FMTSTR = (
 )
 
 # All possible combinations
-FUZZ_ALL = FUZZ_NUMBERS + FUZZ_BOF + FUZZ_FMTSTR
+FUZZ_ALL = FUZZ_RESERVED + FUZZ_NUMBERS + FUZZ_BOF + FUZZ_FMTSTR
 
 # Variable types for DSL
 FUZZ_VARS = (
-    ("@@", FUZZ_ALL),        # All types
-    ("@num@", FUZZ_NUMBERS), # Numbers
-    ("@bof@", FUZZ_BOF),     # Overflows
-    ("@fmtstr@", FUZZ_FMTSTR) # Format strings
+    ("@@", FUZZ_ALL),            # All types
+    ("@num@", FUZZ_NUMBERS),     # Numbers
+    ("@bof@", FUZZ_BOF),         # Overflows
+    ("@fmtstr@", FUZZ_FMTSTR),   # Format strings
+    ("@reserved", FUZZ_RESERVED) # Reserved strings
 )
