@@ -12,6 +12,17 @@ import constants as fuzz_constants
 
 BUFSIZ = 1024
 
+# TODO:
+# - add cleanup method
+# - Some way to take input rather than hard coding things
+# - Save place when something causes a client to disconnect, subsequent
+#   reconnects will try next item in fuzz_strings
+# - Break this off into a class that can be used to write quick fuzzers.
+# - Option to disable select(), only allow 1 connection at a time
+# - Make sure supplied IP address is valid
+# - Headers (on connect, to initialize clients)
+# - Send method rather than using socket.send()
+
 class FuzzTCPServer(object):
     """TCP Server object for thefuzz suite"""
 
