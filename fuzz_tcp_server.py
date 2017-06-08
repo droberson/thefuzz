@@ -21,7 +21,6 @@ BUFSIZ = 1024
 # - Option to disable select(), only allow 1 connection at a time
 # - expect abilities. example: client sends PASS*, server sends +OK
 # - Check if port is valid
-# - Add receive method
 # - Docstrings
 
 class FuzzTCPServer(object):
@@ -97,6 +96,18 @@ class FuzzTCPServer(object):
 
         return True
 
+    @staticmethod
+    def recv(sock, bufsiz):
+        """receive data"""
+        try:
+            data = sock.recv(bufsiz)
+            if data:
+                return data
+            return None
+        except socket.error, exc:
+            print "[-] Couldn't read data: %s" % exc
+            return None
+
 
     def serve(self, delay=0):
         """Main server loop"""
@@ -123,20 +134,12 @@ class FuzzTCPServer(object):
                         self.send(client, self.banner)
 
                 else:
-                    try:
-                        data = sock.recv(BUFSIZ)
-
-                        if data:
-                            print "%s: %s" % (self.getname(sock), data)
-
-                        else:
-                            print "[-] %s/%d Disconnected" % \
-                                (self.getname(sock), sock.fileno())
-                            self.remove_connection(sock)
-
-                    except socket.error, exc:
-                        print "[-] Exception: %s -- %s" % \
-                            (exc, self.getname(sock))
+                    data = self.recv(sock, BUFSIZ)
+                    if data:
+                        print "%s: %s" % (self.getname(sock), data)
+                    else:
+                        print "[-] %s/%d Disconnected" % \
+                            (self.getname(sock), sock.fileno())
                         self.remove_connection(sock)
 
             for output in self.outputs:
@@ -148,7 +151,7 @@ class FuzzTCPServer(object):
                     time.sleep(delay)
 
                 #done!
-                self.remove_connection(output)
+                #self.remove_connection(output)
                 print "[+] Done."
 
         self.server.close()
