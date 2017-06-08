@@ -16,9 +16,9 @@ BUFSIZ = 1024
 # - Some way to take fuzz inputs rather than hard coding things
 # - Save place when something causes a client to disconnect, subsequent
 #   reconnects will try next item in fuzz_strings
-# - Break this off into a class that can be used to write quick fuzzers.
 # - Option to disable select(), only allow 1 connection at a time
 # - Send method rather than using socket.send()
+# - expect abilities. example: client sends PASS*, server sends +OK
 
 class FuzzTCPServer(object):
     """TCP Server object for thefuzz suite"""
@@ -26,14 +26,14 @@ class FuzzTCPServer(object):
     def __init__(self, bindaddr="0.0.0.0", port=4444, backlog=5):
         self.clients = 0
         self.clientmap = {}
-
         self.inputs = []
         self.outputs = []
+        self.banner = None
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
         # TODO: make sure bindaddr is valid
-        self.server.bind(bindaddr, port)
+        self.server.bind((bindaddr, port))
 
         print "[+] Listening on %s:%d" % (bindaddr, port)
         self.server.listen(backlog)
@@ -88,10 +88,13 @@ class FuzzTCPServer(object):
 
             for sock in inputready:
                 if sock == self.server:
-                    # TODO: add header/banner here
                     client, address = self.server.accept()
                     print "[+] Incoming connection from %s" % address[0]
                     self.add_connection(client, address)
+
+                    # Send a banner if it exists
+                    if self.banner:
+                        client.send(self.banner)
 
                 else:
                     try:
@@ -112,10 +115,10 @@ class FuzzTCPServer(object):
 
             for output in self.outputs:
                 for fuzz in fuzz_constants.FUZZ_ALL:
-                    print fuzz[0]
+                    #print fuzz[0]
                     # Put things to fuzz here!!
                     output.send(":%s 311 tupac Tupac thuglife compton.deathrow.net * :Tupac Secure\r\n" % fuzz[1])
-                    output.send(":terribleserver: %s TS TS thuglife compton.deathrow.net * :Tupac Secure\r\n" % fuzz[1])
+                    #output.send(":terribleserver: %s TS TS thuglife compton.deathrow.net * :Tupac Secure\r\n" % fuzz[1])
                     time.sleep(delay)
 
                 #done!
@@ -127,7 +130,8 @@ class FuzzTCPServer(object):
 
 def main():
     """main function"""
-    fuzz = FuzzTCPServer(bindaddr="256.1.1.1", port=6667)
+    fuzz = FuzzTCPServer(port=6667)
+    fuzz.banner = "asdfasdf\r\n"
     fuzz.serve(delay=0.01)
 
 
