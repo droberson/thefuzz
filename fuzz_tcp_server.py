@@ -8,6 +8,8 @@ import socket
 import select
 import signal
 import time
+import sys
+import os
 import constants as fuzz_constants
 
 BUFSIZ = 1024
@@ -32,7 +34,13 @@ class FuzzTCPServer(object):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-        # TODO: make sure bindaddr is valid
+        try:
+            socket.inet_aton(bindaddr)
+        except socket.error:
+            print "[-] Invalid bindaddr: %s" % bindaddr
+            print "[-] Exiting."
+            sys.exit(os.EX_USAGE)
+
         self.server.bind((bindaddr, port))
 
         print "[+] Listening on %s:%d" % (bindaddr, port)
@@ -130,7 +138,7 @@ class FuzzTCPServer(object):
 
 def main():
     """main function"""
-    fuzz = FuzzTCPServer(port=6667)
+    fuzz = FuzzTCPServer(bindaddr="0.0.0.0", port=6667)
     fuzz.banner = "asdfasdf\r\n"
     fuzz.serve(delay=0.01)
 
