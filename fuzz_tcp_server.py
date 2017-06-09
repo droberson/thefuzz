@@ -145,8 +145,7 @@ class FuzzTCPServer(object):
                     if data:
                         print "%s: %s" % (self.getname(sock), data)
                     else:
-                        print "[-] %s/%d Disconnected" % \
-                            (self.getname(sock), sock.fileno())
+                        print "[-] %s Disconnected" % self.getname(sock)
                         self.remove_connection(sock)
 
             for output in self.outputs:
