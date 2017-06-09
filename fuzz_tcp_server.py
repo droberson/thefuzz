@@ -93,20 +93,19 @@ class FuzzTCPServer(object):
         return '@'.join((name, host))
 
 
-    @staticmethod
-    def send(sock, buf):
+    def send(self, sock, buf):
         """send data"""
         try:
             sock.send(buf)
         except socket.error, exc:
             # TODO: put client info here
-            print "[-] Failed to send: %s" % exc
+            print "[-] Failed to send to %s: %s" % (self.getname(sock), exc)
             return False
 
         return True
 
-    @staticmethod
-    def recv(sock, bufsiz):
+
+    def recv(self, sock, bufsiz):
         """receive data"""
         try:
             data = sock.recv(bufsiz)
@@ -114,7 +113,7 @@ class FuzzTCPServer(object):
                 return data
             return None
         except socket.error, exc:
-            print "[-] Couldn't read data: %s" % exc
+            print "[-] Failed to read from %s: %s" % (self.getname(sock), exc)
             return None
 
 
