@@ -98,7 +98,6 @@ class FuzzTCPServer(object):
         try:
             sock.send(buf)
         except socket.error, exc:
-            # TODO: put client info here
             print "[-] Failed to send to %s: %s" % (self.getname(sock), exc)
             return False
 
