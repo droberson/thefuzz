@@ -20,7 +20,6 @@ BUFSIZ = 1024
 #   reconnects will try next item in fuzz_strings
 # - Option to disable select(), only allow 1 connection at a time
 # - expect abilities. example: client sends PASS*, server sends +OK
-# - Check if port is valid
 # - Docstrings
 
 class FuzzTCPServer(object):
@@ -42,7 +41,17 @@ class FuzzTCPServer(object):
             print "[-] Exiting."
             sys.exit(os.EX_USAGE)
 
-        self.server.bind((bindaddr, port))
+        if port > 65535 or port < 1:
+            print "[-] Invalid port number: %d" % port
+            print "[-] Exiting."
+            sys.exit(os.EX_USAGE)
+
+        try:
+            self.server.bind((bindaddr, port))
+        except socket.error, exp:
+            print "[-] Unable to bind to %s:%d: %s" % (bindaddr, port, exp)
+            print "[-] Exiting."
+            sys.exit(os.EX_USAGE)
 
         print "[+] Listening on %s:%d" % (bindaddr, port)
         self.server.listen(backlog)
