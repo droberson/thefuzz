@@ -34,6 +34,7 @@ class FuzzTCPServer(object):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
+        # Validate IP address
         try:
             socket.inet_aton(bindaddr)
         except socket.error:
@@ -41,11 +42,13 @@ class FuzzTCPServer(object):
             print "[-] Exiting."
             sys.exit(os.EX_USAGE)
 
+        # Validate port number
         if port > 65535 or port < 1:
             print "[-] Invalid port number: %d" % port
             print "[-] Exiting."
             sys.exit(os.EX_USAGE)
 
+        # bind to port
         try:
             self.server.bind((bindaddr, port))
         except socket.error, exp:
@@ -150,7 +153,6 @@ class FuzzTCPServer(object):
 
             for output in self.outputs:
                 for fuzz in fuzz_constants.FUZZ_ALL:
-                    #print fuzz[0]
                     # Put things to fuzz here!!
                     if self.send(output, ":%s 311 tupac Tupac thuglife compton.deathrow.net * :Tupac Secure\r\n" % fuzz[1]) is False:
                         break
