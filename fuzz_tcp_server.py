@@ -32,6 +32,7 @@ class FuzzTCPServer(object):
         self.banner = None
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.server.setblocking(0)
 
         # Validate IP address
         try:
@@ -123,6 +124,7 @@ class FuzzTCPServer(object):
             except select.error, exc:
                 break
 
+            # Process inputs from select()
             for sock in inputs:
                 if sock == self.server:
                     client, address = self.server.accept()
@@ -136,11 +138,12 @@ class FuzzTCPServer(object):
                 else:
                     data = self.recv(sock, BUFSIZ)
                     if data:
-                        print "%s: %s" % (sock.peername(), data)
+                        print "[*] %s: %s" % (self.getname(sock), data)
                     else:
                         print "[-] %s Disconnected" % self.getname(sock)
                         self.remove_connection(sock)
 
+            # Process outputs from select()
             for sock in outputs:
                 for fuzz in fuzz_constants.FUZZ_ALL:
                     # Put things to fuzz here!!
@@ -152,6 +155,7 @@ class FuzzTCPServer(object):
                 #done!
                 print "[+] Done."
 
+            # Process exceptions from select()
             for sock in exceptions:
                 print "[-] exception in %s" % self.getname(sock)
                 self.remove_connection(sock)
