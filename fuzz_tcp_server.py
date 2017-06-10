@@ -205,9 +205,10 @@ class FuzzTCPServer(object):
             for sock in outputs:
                 while not self.fuzz_queue.empty():
                     current_fuzz = self.fuzz_queue.get()
-                    print current_fuzz
+
                     if self.send(sock, current_fuzz) is False:
                         break
+
                     time.sleep(delay)
 
                 #done!
