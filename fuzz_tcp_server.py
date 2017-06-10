@@ -26,10 +26,9 @@ class FuzzTCPServer(object):
     """TCP Server object for thefuzz suite"""
 
     def __init__(self, bindaddr="0.0.0.0", port=4444, backlog=5):
-        self.clients = 0
-        self.clientmap = {}
         self.inputs = []
         self.outputs = []
+        self.clientmap = {}
         self.banner = None
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -64,36 +63,31 @@ class FuzzTCPServer(object):
 
     def add_connection(self, sock, address):
         """Add connection"""
-        self.clients += 1
         self.inputs.append(sock)
         self.outputs.append(sock)
-        self.clientmap[sock] = (address, str(sock.fileno()))
+        self.clientmap[sock] = address[0]
 
 
     def remove_connection(self, sock):
         """Cleanup"""
-        self.clients -= 1
         sock.close()
         self.inputs.remove(sock)
-        self.outputs.remove(sock)
-        del self.clientmap[sock]
+        if sock in self.outputs:
+            self.outputs.remove(sock)
 
+    def getname(self, sock):
+        """Get hostname"""
+        return self.clientmap[sock]
 
     def siginthandler(self, signum, frame):
         """Handle SIGINT"""
-        print "[-] Caught Interrupt"
+        print "[-] Caught signal %d" % signum
+        print "[-] Exiting."
 
         for output in self.outputs:
             output.close()
 
         self.server.close()
-
-
-    def getname(self, client):
-        """Get name of client"""
-        info = self.clientmap[client]
-        host, socketno = info[0][0], info[1]
-        return '@'.join((host, socketno))
 
 
     def send(self, sock, buf):
@@ -123,17 +117,13 @@ class FuzzTCPServer(object):
         """Main server loop"""
         self.inputs = [self.server]
 
-        while True:
+        while self.inputs:
             try:
-                inputready, _, _ = select.select(self.inputs, self.outputs, [])
-
+                inputs, outputs, exceptions = select.select(self.inputs, self.outputs, [])
             except select.error, exc:
                 break
 
-            except socket.error, exc:
-                break
-
-            for sock in inputready:
+            for sock in inputs:
                 if sock == self.server:
                     client, address = self.server.accept()
                     self.add_connection(client, address)
@@ -146,21 +136,25 @@ class FuzzTCPServer(object):
                 else:
                     data = self.recv(sock, BUFSIZ)
                     if data:
-                        print "%s: %s" % (self.getname(sock), data)
+                        print "%s: %s" % (sock.peername(), data)
                     else:
                         print "[-] %s Disconnected" % self.getname(sock)
                         self.remove_connection(sock)
 
-            for output in self.outputs:
+            for sock in outputs:
                 for fuzz in fuzz_constants.FUZZ_ALL:
                     # Put things to fuzz here!!
-                    if self.send(output, ":%s 311 tupac Tupac thuglife compton.deathrow.net * :Tupac Secure\r\n" % fuzz[1]) is False:
+                    if self.send(sock, ":%s 311 tupac Tupac thuglife compton.deathrow.net * :Tupac Secure\r\n" % fuzz[1]) is False:
                         break
+
                     time.sleep(delay)
 
                 #done!
-                #self.remove_connection(output)
                 print "[+] Done."
+
+            for sock in exceptions:
+                print "[-] exception in %s" % self.getname(sock)
+                self.remove_connection(sock)
 
         self.server.close()
 
