@@ -16,9 +16,11 @@ import constants as fuzz_constants
 BUFSIZ = 1024
 
 # Things to do:
-# - Some way to take fuzz inputs rather than hard coding things
 # - Expect abilities. example: client sends PASS*, server sends +OK
 # - Docstrings
+# - Use this class to actually build some fuzzers
+# - ability to omit \r\n
+# - Count fuzz strings
 
 class FuzzTCPServer(object):
     """TCP Server object for thefuzz suite"""
@@ -203,17 +205,17 @@ class FuzzTCPServer(object):
 
             # Process outputs from select()
             for sock in outputs:
-                while not self.fuzz_queue.empty():
+                if not self.fuzz_queue.empty():
                     current_fuzz = self.fuzz_queue.get()
 
                     if self.send(sock, current_fuzz) is False:
                         break
 
                     time.sleep(delay)
-
-                #done!
-                running = False
-                print "[+] Done."
+                else:
+                    #done!
+                    running = False
+                    print "[+] Done."
 
             # Process exceptions from select()
             for sock in exceptions:
