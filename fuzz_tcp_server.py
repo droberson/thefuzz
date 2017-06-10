@@ -10,16 +10,14 @@ import signal
 import time
 import sys
 import os
+import Queue
 import constants as fuzz_constants
 
 BUFSIZ = 1024
 
 # Things to do:
 # - Some way to take fuzz inputs rather than hard coding things
-# - Save place when something causes a client to disconnect, subsequent
-#   reconnects will try next item in fuzz_strings
-# - Option to disable select(), only allow 1 connection at a time
-# - expect abilities. example: client sends PASS*, server sends +OK
+# - Expect abilities. example: client sends PASS*, server sends +OK
 # - Docstrings
 
 class FuzzTCPServer(object):
@@ -30,9 +28,8 @@ class FuzzTCPServer(object):
         self.outputs = []
         self.clientmap = {}
         self.banner = None
-        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.server.setblocking(0)
+
+        self.fuzz_queue = Queue.Queue()
 
         # Validate IP address
         try:
@@ -48,6 +45,11 @@ class FuzzTCPServer(object):
             print "[-] Exiting."
             sys.exit(os.EX_USAGE)
 
+        # Create listen socket
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.server.setblocking(0)
+
         # bind to port
         try:
             self.server.bind((bindaddr, port))
@@ -61,6 +63,61 @@ class FuzzTCPServer(object):
 
         signal.signal(signal.SIGINT, self.siginthandler)
 
+
+    @staticmethod
+    def get_fuzz_strings(string):
+        """get_fuzz_strings()"""
+        count = 0
+        fuzz_strings = ()
+
+        for variable in fuzz_constants.FUZZ_VARS:
+            count += 1
+            if variable[0] in string:
+                fuzz_strings = fuzz_constants.FUZZ_VARS[count - 1][1]
+                break
+
+        return fuzz_strings
+
+
+    def add_script(self, scriptfile):
+        """add_script() -- parses script file and adds items to queue"""
+        if not os.access(scriptfile, os.R_OK):
+            print "[-] Could not open %s for reading" % scriptfile
+            return False
+
+        linecount = 0
+        for line in open(scriptfile, "r"):
+            linecount += 1
+            line = line.rstrip()
+
+            # Skip comments and blank lines
+            if line[:1] == "#" or not line:
+                continue
+
+            # Make sure only variable per line exists
+            varcount = 0
+            for var in fuzz_constants.FUZZ_VARS:
+                varcount += line.count(var[0])
+            if varcount > 1:
+                print "[-] Too many variables on line %d of %s. Skipping." % \
+                    (linecount, scriptfile)
+                print "    %s\n" % line
+                continue
+
+            # Get fuzz strings based on variable in line
+            fuzz_strings = self.get_fuzz_strings(line)
+
+            # Replace variable name with @@
+            for variable in fuzz_constants.FUZZ_VARS:
+                if variable[0] in line:
+                    line = line.replace(variable[0], "@@")
+                    break
+
+            # Add fuzz strings to queue
+            for fuzz_string in fuzz_strings:
+                self.fuzz_queue.put(line.replace("@@", fuzz_string[1]) + "\r\n")
+
+        return True
 
     def add_connection(self, sock, address):
         """Add connection"""
@@ -118,7 +175,8 @@ class FuzzTCPServer(object):
         """Main server loop"""
         self.inputs = [self.server]
 
-        while self.inputs:
+        running = True
+        while running:
             try:
                 inputs, outputs, exceptions = select.select(self.inputs, self.outputs, [])
             except select.error, exc:
@@ -145,14 +203,15 @@ class FuzzTCPServer(object):
 
             # Process outputs from select()
             for sock in outputs:
-                for fuzz in fuzz_constants.FUZZ_ALL:
-                    # Put things to fuzz here!!
-                    if self.send(sock, ":%s 311 tupac Tupac thuglife compton.deathrow.net * :Tupac Secure\r\n" % fuzz[1]) is False:
+                while not self.fuzz_queue.empty():
+                    current_fuzz = self.fuzz_queue.get()
+                    print current_fuzz
+                    if self.send(sock, current_fuzz) is False:
                         break
-
                     time.sleep(delay)
 
                 #done!
+                running = False
                 print "[+] Done."
 
             # Process exceptions from select()
@@ -167,6 +226,7 @@ def main():
     """main function"""
     fuzz = FuzzTCPServer(bindaddr="0.0.0.0", port=6667)
     fuzz.banner = "asdfasdf\r\n"
+    fuzz.add_script("test.script")
     fuzz.serve(delay=0.01)
 
 
