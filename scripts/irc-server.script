@@ -1,0 +1,26 @@
+# Server notices
+:compton.deathrow.net NOTICE * :*** Looking up your hostname...
+:@@ NOTICE * :*** Looking up your hostname...
+:compton.deathrow.net @@ * :*** Looking up your hostname...
+:compton.deathrow.net NOTICE @@ :***Looking up your hostname...
+:compton.deathrow.net NOTICE * :@@
+
+# CAP reply
+:@@ CAP * LS :account-notify extended-join identify-msg multi-prefix sasl
+:compton.deathrow.net @@ * LS :account-notify extended-join identify-msg multi-prefix sasl
+:compton.deathrow.net CAP @@ LS :account-notify extended-join identify-msg multi-prefix sasl
+:compton.deathrow.net CAP * @@ :account-notify extended-join identify-msg multi-prefix sasl
+:compton.deathrow.net CAP * LS :@@
+
+# CAP ACK
+:@@ CAP TupacSecure  ACK :multi-prefix
+:compton.deathrow.net @@ TupacSecure  ACK :multi-prefix
+:compton.deathrow.net CAP @@ ACK :multi-prefix
+:compton.deathrow.net CAP TupacSecure @@ :multi-prefix
+:compton.deathrow.net CAP TupacSecure ACK :@@
+
+# Numeric 001
+:@@ 001 TupacSecure :Welcome to the Thug Life
+:compton.deathrow.net @@ TupacSecure :Welcome to the Thug Life
+:compton.deathrow.net 001 @@ :Welcome to the Thug Life
+:compton.deathrow.net 001 TupacSecure :@@
