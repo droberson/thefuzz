@@ -92,8 +92,8 @@ class FuzzTCPServer(object):
     def getname(self, client):
         """Get name of client"""
         info = self.clientmap[client]
-        host, name = info[0][0], info[1]
-        return '@'.join((name, host))
+        host, socketno = info[0][0], info[1]
+        return '@'.join((host, socketno))
 
 
     def send(self, sock, buf):
