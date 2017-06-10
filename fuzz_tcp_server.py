@@ -106,6 +106,11 @@ class FuzzTCPServer(object):
                 print "    %s\n" % line
                 continue
 
+            # Add lines without variables as they are
+            if varcount == 0:
+                self.fuzz_queue.put(line + "\r\n")
+                continue
+
             # Get fuzz strings based on variable in line
             fuzz_strings = self.get_fuzz_strings(line)
 
@@ -207,7 +212,6 @@ class FuzzTCPServer(object):
             for sock in outputs:
                 if not self.fuzz_queue.empty():
                     current_fuzz = self.fuzz_queue.get()
-
                     if self.send(sock, current_fuzz) is False:
                         break
 
