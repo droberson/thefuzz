@@ -8,7 +8,7 @@ future.
 
 # What's included?
 
-- fuzz_cli.py 
+## fuzz_cli.py 
 
 This is a CLI program fuzzer. It supports CLI arguments and
 environment variables as fuzzing targets.
@@ -22,7 +22,7 @@ overflow:
 
 See scripts/ directory for examples of scripts.
 
-- tests/ld_preload-get-vars.so
+## tests/ld_preload-get-vars.so
 
 This is a library that intercepts the different getopt() functions and
 getenv().It displays what flags work on a program and which
@@ -59,3 +59,66 @@ ENV:HOSTALIASES="@@" asdf
 -T @@ asdf
 -w @@ asdf
 ```
+
+## FuzzTCPServer.py
+
+This file contains a class for crafting TCP servers to fuzz
+clients. For example, a simple IRC fuzzer:
+
+```
+#!/usr/bin/env python
+
+# Example of an IRC fuzzing server
+
+from FuzzTCPServer import *
+
+def main():
+    """main function"""
+    fuzz = FuzzTCPServer(bindaddr="0.0.0.0", port=6667)
+    fuzz.banner = "Welcome to the best irc server ever.\r\n"
+    fuzz.add_script("scripts/irc-server.script")
+    fuzz.serve(delay=0.01)
+
+
+if __name__ == "__main__":
+    main()
+
+```
+
+This is similar to the CLI fuzzer in the scripting language. Each line
+if it contains a variable will be sent to the client with the naughty
+strings in place of variables:
+
+```
+# Server notices
+:compton.deathrow.net NOTICE * :*** Looking up your hostname...
+:@@ NOTICE * :*** Looking up your hostname...
+:compton.deathrow.net @@ * :*** Looking up your hostname...
+:compton.deathrow.net NOTICE @@ :***Looking up your hostname...
+:compton.deathrow.net NOTICE * :@@
+
+# CAP reply
+:@@ CAP * LS :account-notify extended-join identify-msg multi-prefix sasl
+:compton.deathrow.net @@ * LS :account-notify extended-join identify-msg multi-prefix sasl
+:compton.deathrow.net CAP @@ LS :account-notify extended-join identify-msg multi-prefix sasl
+:compton.deathrow.net CAP * @@ :account-notify extended-join identify-msg multi-prefix sasl
+:compton.deathrow.net CAP * LS :@@
+
+# CAP ACK
+:@@ CAP TupacSecure  ACK :multi-prefix
+:compton.deathrow.net @@ TupacSecure  ACK :multi-prefix
+:compton.deathrow.net CAP @@ ACK :multi-prefix
+:compton.deathrow.net CAP TupacSecure @@ :multi-prefix
+:compton.deathrow.net CAP TupacSecure ACK :@@
+
+# Numeric 001
+:@@ 001 TupacSecure :Welcome to the Thug Life
+:compton.deathrow.net @@ TupacSecure :Welcome to the Thug Life
+:compton.deathrow.net 001 @@ :Welcome to the Thug Life
+:compton.deathrow.net 001 TupacSecure :@@
+
+...
+...
+...
+```
+
