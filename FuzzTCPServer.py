@@ -189,6 +189,9 @@ class FuzzTCPServer(object):
             except select.error, exc:
                 break
 
+            except socket.error, exc:
+                break
+
             # Process inputs from select()
             for sock in inputs:
                 if sock == self.server:
