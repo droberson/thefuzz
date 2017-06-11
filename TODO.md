@@ -15,6 +15,7 @@ Here's a list of things I'd like to do and some general brainstorming.
 - Since HTTP is so common, a dedicated program for it may be in order.
 
 ## TCP Server
+- Ability to read a pcap file and build a script.
 - binary!!
 
 ## TCP Client
