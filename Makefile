@@ -1,30 +1,30 @@
 all: buf divzero fmt sleep stderr getopt getenv ld_preload-get-vars
 
 buf:
-	gcc -o buf buf.c
+	gcc -o tests/buf tests/buf.c
 
 divzero:
-	gcc -o divzero divzero.c
+	gcc -o tests/divzero tests/divzero.c
 
 fmt:
-	gcc -o fmt fmt.c
+	gcc -o tests/fmt tests/fmt.c
 
 sleep:
-	gcc -o sleep sleep.c
+	gcc -o tests/sleep tests/sleep.c
 
 stderr:
-	gcc -o stderr stderr.c
+	gcc -o tests/stderr tests/stderr.c
 
 getopt:
-	gcc -o getopt getopt.c
+	gcc -o tests/getopt tests/getopt.c
 
 getenv:
-	gcc -o getenv getenv.c
+	gcc -o tests/getenv tests/getenv.c
 
 ld_preload-get-vars:
-	gcc -fPIC -c ld_preload-get-vars.c -o ld_preload-get-vars.o
-	gcc -shared -o ld_preload-get-vars.so ld_preload-get-vars.o
+	gcc -fPIC -c tests/ld_preload-get-vars.c -o tests/ld_preload-get-vars.o
+	gcc -shared -o ld_preload-get-vars.so tests/ld_preload-get-vars.o
 
 clean:
-	rm -rf *.o *.so buf divzero fmt sleep stderr getenv getopt *~
+	rm -rf tests/*.o *.so tests/buf tests/divzero tests/fmt tests/sleep tests/stderr tests/getenv tests/getopt tests/*~
 
