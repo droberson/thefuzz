@@ -6,5 +6,5 @@ tests/sleep
 tests/getopt
 tests/getenv
 tests/*.o
-tests/*.so
+*.so
 *.pyc
