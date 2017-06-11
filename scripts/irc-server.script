@@ -24,3 +24,135 @@
 :compton.deathrow.net @@ TupacSecure :Welcome to the Thug Life
 :compton.deathrow.net 001 @@ :Welcome to the Thug Life
 :compton.deathrow.net 001 TupacSecure :@@
+
+# Numeric 002
+:@@ 002 TupacSecure :Your host is compton.deathrow.net[127.0.0.1/6667], running version thugpassion-1.0
+:compton.deathrow.net 002 @@ :Your host is compton.deathrow.net[127.0.0.1/6667], running version thugpassion-1.0
+:compton.deathrow.net 002 TupacSecure :@@
+:compton.deathrow.net 002 TupacSecure :Your host is @@[127.0.0.1/6667], running version thugpassion-1.0
+:compton.deathrow.net 002 TupacSecure :Your host is compton.deathrow.net[@@/6667], running version thugpassion-1.0
+:compton.deathrow.net 002 TupacSecure :Your host is compton.deathrow.net[127.0.0.1/@@], running version thugpassion-1.0
+:compton.deathrow.net 002 TupacSecure :Your host is compton.deathrow.net[127.0.0.1/6667], running version @@
+
+# Numeric 003
+:@@ 003 TupacSecure :This server was created Thu Jan 26 2017 at 20:12:59 UTC
+:compton.deathrow.net 003 @@ :This server was created Thu Jan 26 2017 at 20:12:59 UTC
+:compton.deathrow.net 003 TupacSecure :@@
+:compton.deathrow.net 003 TupacSecure :This server was created @@ Jan 26 2017 at 20:12:59 UTC
+:compton.deathrow.net 003 TupacSecure :This server was created Thu @@ 26 2017 at 20:12:59 UTC
+:compton.deathrow.net 003 TupacSecure :This server was created Thu Jan @@ 2017 at 20:12:59 UTC
+:compton.deathrow.net 003 TupacSecure :This server was created Thu Jan 26 @@ at 20:12:59 UTC
+:compton.deathrow.net 003 TupacSecure :This server was created Thu Jan 26 2017 at @@:12:59 UTC
+:compton.deathrow.net 003 TupacSecure :This server was created Thu Jan 26 2017 at 20:@@:59 UTC
+:compton.deathrow.net 003 TupacSecure :This server was created Thu Jan 26 2017 at 20:12:@@ UTC
+:compton.deathrow.net 003 TupacSecure :This server was created Thu Jan 26 2017 at 20:12:59 @@
+:compton.deathrow.net 003 TupacSecure :This server was created Thu Jan 26 2017 at @@ UTC
+
+# Numeric 004
+:@@ 004 TupacSecure compton.deathrow.net thugpassion-01 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+:compton.deathrow.net 004 @@ compton.deathrow.net thugpassion-01 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+:compton.deathrow.net 004 TupacSecure @@ thugpassion-01 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+:compton.deathrow.net 004 TupacSecure @@.deathrow.net thugpassion-01 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+:compton.deathrow.net 004 TupacSecure compton.@@.net thugpassion-01 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+:compton.deathrow.net 004 TupacSecure compton.deathrow.@@ thugpassion-01 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+:compton.deathrow.net 004 TupacSecure compton.deathrow.net @@ DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+:compton.deathrow.net 004 TupacSecure compton.deathrow.net thugpassion-01 @@ CFILMPQSbcefgijklmnopqrstvz bkloveqjfI
+:compton.deathrow.net 004 TupacSecure compton.deathrow.net thugpassion-01 DOQRSZaghilopswz @@ bkloveqjfI
+:compton.deathrow.net 004 TupacSecure compton.deathrow.net thugpassion-01 DOQRSZaghilopswz CFILMPQSbcefgijklmnopqrstvz @@
+:compton.deathrow.net 004 TupacSecure compton.deathrow.net @@
+:compton.deathrow.net 004 TupacSecure @@
+
+# Numeric 005
+:@@ 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:@@.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.@@.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.@@ 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 @@ CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=@@ EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# @@ INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=@@ CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=@@,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,@,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,@@,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,@@ CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=@@:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:@@ PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=@@ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(@@)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@@ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=@@ MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=@@:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:@@ MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=@@ NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=@@ STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@@ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=@@ CASEMAPPING=rfc1459 :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=@@ :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=deathrow STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :@@
+
+# More Numeric 005
+:compton.deathrow.net 005 TupacSecure CHARSET=@@ NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=@@ CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=@@ TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=@@ DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=@@ FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=@@:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:@@,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,@@:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:@@,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,@@:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:@@,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,@@:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:@@,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:@@,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,@@:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,@@:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:@@,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,@@:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:@@,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:@@,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR:@@ EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=@@,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,@@ CLIENTVER=3.0 SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=@@ SAFELIST ELIST=CTU KNOCK :are supported by this server
+:compton.deathrow.net 005 TupacSecure CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=@@ KNOCK :are supported by this server
+
+# Numeric 251
+:compton.deathrow.net 251 @@ :There are 130 users and 84811 invisible on 27 servers
+:@@ 251 TupacSecure :There are 130 users and 84811 invisible on 27 servers
+:@@.deathrow.net 251 TupacSecure :There are 130 users and 84811 invisible on 27 servers
+:compton.@@.net 251 TupacSecure :There are 130 users and 84811 invisible on 27 servers
+:compton.deathrow.@@ 251 TupacSecure :There are 130 users and 84811 invisible on 27 servers
+:compton.deathrow.net 251 TupacSecure :@@
+:compton.deathrow.net 251 TupacSecure :There are @@ users and 84811 invisible on 27 servers
+:compton.deathrow.net 251 TupacSecure :There are 130 users and @@ invisible on 27 servers
+:compton.deathrow.net 251 TupacSecure :There are 130 users and 84811 invisible on @@ servers
+
+# Numeric 252
+:@@ 252 TupacSecure 30 :IRC Operators online
+:compton.@@.net 252 TupacSecure 30 :IRC Operators online
+:compton.deathrow.@@ 252 TupacSecure 30 :IRC Operators online
+:compton.deathrow.net 252 @@ 30 :IRC Operators online
+:compton.deathrow.net 252 TupacSecure @@ :IRC Operators online
+:compton.deathrow.net 252 TupacSecure 30 :@@
+
+# Numeric 253
+:@@ 253 TupacSecure 39 :unknown connection(s)
+:compton.@@.net 253 TupacSecure 39 :unknown connection(s)
+:compton.deathrow.@@ 253 TupacSecure 39 :unknown connection(s)
+:compton.deathrow.net @@ TupacSecure 39 :unknown connection(s)
+:compton.deathrow.net 253 @@ 39 :unknown connection(s)
+:compton.deathrow.net 253 TupacSecure @@ :unknown connection(s)
+:compton.deathrow.net 253 TupacSecure 39 :@@
+
+# :compton.deathrow.net 254 TupacSecure 60332 :channels formed
+# :compton.deathrow.net 255 TupacSecure :I have 5314 clients and 1 servers
+# :compton.deathrow.net 265 TupacSecure 5314 7368 :Current local users 5314, max 7368
+# :compton.deathrow.net 266 TupacSecure 84941 97718 :Current global users 84941, max 97718
+# :compton.deathrow.net 250 TupacSecure :Highest connection count: 7369 (7368 clients) (1313830 connections received)
+# :compton.deathrow.net 375 TupacSecure :- compton.deathrow.net Message of the Day - 
+# :compton.deathrow.net 372 TupacSecure :- Welcome to compton.deathrow.net in California, USA.
+# :compton.deathrow.net 376 TupacSecure :End of /MOTD command.
+# :TupacSecure MODE TupacSecure :+i
+# :NickServ!NickServ@services. NOTICE TupacSecure :This nickname is registered. Please choose a different nickname, or identify via ./msg NickServ identify <password>..
+# :compton.deathrow.net PONG compton.deathrow.net :compton.deathrow.net
