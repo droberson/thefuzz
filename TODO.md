@@ -16,8 +16,6 @@ Here's a list of things I'd like to do and some general brainstorming.
 
 ## TCP Server
 - binary!!
-- Perhaps it might be a good idea to implement common protocols as their
-own tools and have a generic scripting lang for non-common/custom protocols.
 
 ## TCP Client
 - Start this. Connects to a server as a client and blasts server with data.
