@@ -17,8 +17,6 @@ Here's a list of things I'd like to do and some general brainstorming.
 - Since HTTP is so common, a dedicated program for it may be in order.
 
 ## TCP Server
-- Start this. Clients connect to this server, get blasted with data.
-- Figure out how to define protocols in script form
 - Plaintext and binary!!
 - Perhaps it might be a good idea to implement common protocols as their
 own tools and have a generic scripting lang for non-common/custom protocols.
