@@ -13,9 +13,10 @@ strings. Their respective project pages are here:
 #
 # "description" id displayed on output, "actual string" is sent during fuzzing
 
+import string
 
 # Numbers
-FUZZ_NUMBERS = (
+FUZZ_NUMBERS = [
     ("0", "0"),
     ("1", "1"),
     ("-1", "-1"),
@@ -39,10 +40,10 @@ FUZZ_NUMBERS = (
     ("0x80000000", "0x80000000"),
     ("0xfffffffe", "0xfffffffe"),
     ("0xffffffff", "0xffffffff")
-)
+]
 
 # Reserved strings
-FUZZ_RESERVED = (
+FUZZ_RESERVED = [
     ("hasOwnProperty", "hasOwnProperty"),
     ("true", "true"),
     ("True", "True"),
@@ -60,10 +61,10 @@ FUZZ_RESERVED = (
     ("undef", "undef"),
     ("\\", "\\"),
     ("\\\\", "\\\\")
-)
+]
 
 # Overflows
-FUZZ_BOF = (
+FUZZ_BOF = [
     ("64 bytes", "A" * 64),
     ("128 bytes", "A" * 128),
     ("256 bytes", "A" * 256),
@@ -72,10 +73,10 @@ FUZZ_BOF = (
     ("4096 bytes", "A" * 4086),
     ("8192 bytes", "A" * 8192),
     ("16384 bytes", "A" * 16384)
-)
+]
 
 # Format strings
-FUZZ_FMTSTR = (
+FUZZ_FMTSTR = [
     ("%s%p%x%d", "%s%p%x%d"),
     ("%99999999999s", "%99999999999s"),
     ("%08x", "%08x"),
@@ -159,16 +160,34 @@ FUZZ_FMTSTR = (
     ("Eight %@", "%@" * 8),
     ("Eight %@ with spaces", "%@ " * 8),
     ("Thirty-two %@", "%@" * 32)
-)
+]
+
+# Alphanumeric combinations
+FUZZ_ALPHANUMERIC = [
+    ("a-z", string.ascii_lowercase),
+    ("A-Z", string.ascii_uppercase),
+    ("a-zA-Z", string.ascii_letters),
+    ("0-9", string.digits),
+    ("hexadecimal digits", string.hexdigits),
+    ("octal digits", string.octdigits),
+    ("punctuation", string.punctuation),
+    ("printale characters", string.printable),
+    ("whitespace", string.whitespace)
+]
+
+# Add single characters to FUZZ_ALPHANUMERIC.
+for x in string.printable:
+    FUZZ_ALPHANUMERIC.insert(0, (x, x))
 
 # All possible combinations
-FUZZ_ALL = FUZZ_RESERVED + FUZZ_NUMBERS + FUZZ_BOF + FUZZ_FMTSTR
+FUZZ_ALL = FUZZ_ALPHANUMERIC + FUZZ_RESERVED + FUZZ_NUMBERS + FUZZ_BOF + FUZZ_FMTSTR
 
 # Variable types for DSL
 FUZZ_VARS = (
-    ("@@", FUZZ_ALL),            # All types
-    ("@num@", FUZZ_NUMBERS),     # Numbers
-    ("@bof@", FUZZ_BOF),         # Overflows
-    ("@fmtstr@", FUZZ_FMTSTR),   # Format strings
-    ("@reserved", FUZZ_RESERVED) # Reserved strings
+    ("@@", FUZZ_ALL),                  # All types
+    ("@num@", FUZZ_NUMBERS),           # Numbers
+    ("@bof@", FUZZ_BOF),               # Overflows
+    ("@fmtstr@", FUZZ_FMTSTR),         # Format strings
+    ("@reserved@", FUZZ_RESERVED),     # Reserved strings
+    ("@alphanum@", FUZZ_ALPHANUMERIC), # Alphanumerics
 )
