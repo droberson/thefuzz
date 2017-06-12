@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
-# Example of an IRC fuzzing server
+"""
+Example of an IRC fuzzing server using FuzzTCPServer
+"""
 
 import sys
-from FuzzTCPServer import *
+import FuzzTCPServer as ircfuzz
 
 def main():
     """main function"""
@@ -11,7 +13,7 @@ def main():
     if len(sys.argv) > 1:
         port = int(sys.argv[1])
 
-    fuzz = FuzzTCPServer(bindaddr="0.0.0.0", port=port)
+    fuzz = ircfuzz.FuzzTCPServer(bindaddr="0.0.0.0", port=port)
     fuzz.banner = "Welcome to the best irc server ever.\r\n"
     fuzz.add_script("scripts/irc-server.script")
     fuzz.serve(delay=0.01)
