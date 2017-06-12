@@ -206,7 +206,7 @@ class FuzzTCPServer(object):
                 else:
                     data = self.recv(sock, BUFSIZ)
                     if data:
-                        print "[*] %s: %s" % (self.getname(sock), data)
+                        print "[*] %s: %s" % (self.getname(sock), data.rstrip())
                     else:
                         print "[-] %s Disconnected" % self.getname(sock)
                         self.remove_connection(sock)
