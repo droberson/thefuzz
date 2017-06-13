@@ -233,3 +233,228 @@
 :@@ PONG compton.deathrow.net :compton.deathrow.net
 :compton.deathrow.net PONG @@ :compton.deathrow.net
 :compton.deathrow.net PONG compton.deathrow.net :@@
+
+# WHOIS-related numerics
+:@@ 311 TupacSecure TupacSecure ~pac thugpassion.deathrow.net * :Tupac Secure
+:compton.deathrow.net 311 @@ TupacSecure ~pac thugpassion.deathrow.net * :Tupac Secure
+:compton.deathrow.net 311 TupacSecure @@ ~pac thugpassion.deathrow.net * :Tupac Secure
+:compton.deathrow.net 311 TupacSecure TupacSecure @@ thugpassion.deathrow.net * :Tupac Secure
+:compton.deathrow.net 311 TupacSecure TupacSecure ~pac @@ * :Tupac Secure
+:compton.deathrow.net 311 TupacSecure TupacSecure ~pac @@.deathrow.net * :Tupac Secure
+:compton.deathrow.net 311 TupacSecure TupacSecure ~pac thugpassion.@@.net * :Tupac Secure
+:compton.deathrow.net 311 TupacSecure TupacSecure ~pac thugpassion.deathrow.@@ * :Tupac Secure
+:compton.deathrow.net 311 TupacSecure TupacSecure ~pac thugpassion.deathrow.net @@ :Tupac Secure
+:compton.deathrow.net 311 TupacSecure TupacSecure ~pac thugpassion.deathrow.net * :@@
+
+:@@ 319 TupacSecure TupacSecure :@#the-streets
+:compton.deathrow.net 319 @@ TupacSecure :@#the-streets
+:compton.deathrow.net 319 TupacSecure @@ :@#the-streets
+:compton.deathrow.net 319 TupacSecure TupacSecure :@@
+
+:@@ 312 TupacSecure TupacSecure compton.deathrow.net :Death Row
+:compton.deathrow.net 312 @@ TupacSecure compton.deathrow.net :Death Row
+:compton.deathrow.net 312 TupacSecure @@ compton.deathrow.net :Death Row
+:compton.deathrow.net 312 TupacSecure TupacSecure @@ :Death Row
+:compton.deathrow.net 312 TupacSecure TupacSecure compton.deathrow.net :@@
+:compton.deathrow.net 312 TupacSecure TupacSecure @@.deathrow.net :Death Row
+:compton.deathrow.net 312 TupacSecure TupacSecure compton.@@.net :Death Row
+:compton.deathrow.net 312 TupacSecure TupacSecure compton.deathrow.@@ :Death Row
+
+:@@ 379 TupacSecure TupacSecure :is using modes +i
+:compton.deathrow.net 379 @@ TupacSecure :is using modes +i
+:compton.deathrow.net 379 TupacSecure @@ :is using modes +i
+:compton.deathrow.net 379 TupacSecure TupacSecure :@@
+:compton.deathrow.net 379 TupacSecure TupacSecure :is using modes @@
+
+:@@ 338 TupacSecure TupacSecure ~pac@thugpassion.deathrow.net 10.10.10.10 :Actual user@host, actual IP
+:compton.deathrow.net 338 @@ TupacSecure ~pac@thugpassion.deathrow.net 10.10.10.10 :Actual user@host, actual IP
+:compton.deathrow.net 338 TupacSecure @@ ~pac@thugpassion.deathrow.net 10.10.10.10 :Actual user@host, actual IP
+:compton.deathrow.net 338 TupacSecure TupacSecure @@@thugpassion.deathrow.net 10.10.10.10 :Actual user@host, actual IP
+:compton.deathrow.net 338 TupacSecure TupacSecure ~pac@x@@ 10.10.10.10 :Actual user@host, actual IP
+:compton.deathrow.net 338 TupacSecure TupacSecure ~pac@thugpassion.deathrow.net @@ :Actual user@host, actual IP
+:compton.deathrow.net 338 TupacSecure TupacSecure ~pac@thugpassion.deathrow.net @@.10.10.10 :Actual user@host, actual IP
+:compton.deathrow.net 338 TupacSecure TupacSecure ~pac@thugpassion.deathrow.net 10.@@.10.10 :Actual user@host, actual IP
+:compton.deathrow.net 338 TupacSecure TupacSecure ~pac@thugpassion.deathrow.net 10.10.@@.10 :Actual user@host, actual IP
+:compton.deathrow.net 338 TupacSecure TupacSecure ~pac@thugpassion.deathrow.net 10.10.10.@@ :Actual user@host, actual IP
+:compton.deathrow.net 338 TupacSecure TupacSecure ~pac@thugpassion.deathrow.net 10.10.10.10 :@@
+
+:@@ 317 TupacSecure TupacSecure 111632 1497244610 :seconds idle, signon time
+:compton.deathrow.net 317 @@ TupacSecure 111632 1497244610 :seconds idle, signon time
+:compton.deathrow.net 317 TupacSecure @@ 111632 1497244610 :seconds idle, signon time
+:compton.deathrow.net 317 TupacSecure TupacSecure @@ 1497244610 :seconds idle, signon time
+:compton.deathrow.net 317 TupacSecure TupacSecure 111632 @@ :seconds idle, signon time
+:compton.deathrow.net 317 TupacSecure TupacSecure 111632 1497244610 :@@
+
+:@@ 318 TupacSecure TupacSecure :End of /WHOIS list.
+:compton.deathrow.net 318 @@ TupacSecure :End of /WHOIS list.
+:compton.deathrow.net 318 TupacSecure @@ :End of /WHOIS list.
+:compton.deathrow.net 318 TupacSecure TupacSecure :@@
+
+# Joining a channel
+:@@!~tupac@thugpassion.deathrow.net JOIN :#badboy
+:TupacSecure!@@@thugpassion.deathrow.net JOIN :#badboy
+:TupacSecure!~tupac@@all@ JOIN :#badboy
+:TupacSecure!~tupac@thugpassion.deathrow.net JOIN :@@
+
+:@@ MODE #badboy +nt
+:compton.deathrow.net MODE @@ +nt
+:compton.deathrow.net MODE #badboy +@@
+:compton.deathrow.net MODE #badboy @@
+:compton.deathrow.net MODE #badboy -@@
+
+# NAMES-related numerics
+:@@ 353 TupacSecure = #badboy :TupacSecure biggie
+:compton.deathrow.net 353 @@ = #badboy :TupacSecure biggie
+:compton.deathrow.net 353 TupacSecure @@ #badboy :TupacSecure biggie
+:compton.deathrow.net 353 TupacSecure = @@ :TupacSecure biggie
+:compton.deathrow.net 353 TupacSecure = #badboy :@@
+
+:@@ 366 TupacSecure #badboy :End of /NAMES list.
+:compton.deathrow.net 366 @@ #badboy :End of /NAMES list.
+:compton.deathrow.net 366 TupacSecure @@ :End of /NAMES list.
+:compton.deathrow.net 366 TupacSecure #badboy :@@
+
+# Numerics 324 and 329 -- Channel modes
+:@@ 324 TupacSecure #badboy +nt
+:compton.deathrow.net 324 @@ #badboy +nt
+:compton.deathrow.net 324 TupacSecure @@ +nt
+:compton.deathrow.net 324 TupacSecure #badboy @@
+:compton.deathrow.net 324 TupacSecure #badboy +@@
+:compton.deathrow.net 324 TupacSecure #badboy -@@
+
+:@@ 329 TupacSecure #badboy 1497356470
+:compton.deathrow.net 329 @@ #badboy 1497356470
+:compton.deathrow.net 329 TupacSecure @@ 1497356470
+:compton.deathrow.net 329 TupacSecure #badboy @@
+
+# Numerics 367 and 368 -- Channel ban list
+:@@ 367 TupacSecure #badboy nick!user@host.com biggie!~biggie@thugpassion.deathrow.net 1497356684
+:compton.deathrow.net 367 @@ #badboy nick!user@host.com biggie!~biggie@thugpassion.deathrow.net 1497356684
+:compton.deathrow.net 367 TupacSecure @@ nick!user@host.com biggie!~biggie@thugpassion.deathrow.net 1497356684
+:compton.deathrow.net 367 TupacSecure #badboy @@!user@host.com biggie!~biggie@thugpassion.deathrow.net 1497356684
+:compton.deathrow.net 367 TupacSecure #badboy nick!@all@@host.com biggie!~biggie@thugpassion.deathrow.net 1497356684
+:compton.deathrow.net 367 TupacSecure #badboy nick!user@@all@ biggie!~biggie@thugpassion.deathrow.net 1497356684
+:compton.deathrow.net 367 TupacSecure #badboy nick!user@host.com @@!~biggie@thugpassion.deathrow.net 1497356684
+:compton.deathrow.net 367 TupacSecure #badboy nick!user@host.com biggie!@all@@thugpassion.deathrow.net 1497356684
+:compton.deathrow.net 367 TupacSecure #badboy nick!user@host.com biggie!~biggie@@all@ 1497356684
+:compton.deathrow.net 367 TupacSecure #badboy nick!user@host.com biggie!~biggie@thugpassion.deathrow.net @@
+
+:@@ 368 TupacSecure #badboy :End of Channel Ban List
+:compton.deathrow.net 368 @@ #badboy :End of Channel Ban List
+:compton.deathrow.net 368 TupacSecure @@ :End of Channel Ban List
+:compton.deathrow.net 368 TupacSecure #badboy :@@
+
+# Numerics 352 and 315 -- WHO
+:@@ 352 TupacSecure #badboy ~tupac thugpassion.deathrow.net compton.deathrow.net TupacSecure H@ :0 Tupac Secure
+:compton.deathrow.net 352 @@ #badboy ~tupac thugpassion.deathrow.net compton.deathrow.net TupacSecure H@ :0 Tupac Secure
+:compton.deathrow.net 352 TupacSecure @@ ~tupac thugpassion.deathrow.net compton.deathrow.net TupacSecure H@ :0 Tupac Secure
+:compton.deathrow.net 352 TupacSecure #badboy @@ thugpassion.deathrow.net compton.deathrow.net TupacSecure H@ :0 Tupac Secure
+:compton.deathrow.net 352 TupacSecure #badboy ~tupac @@ compton.deathrow.net TupacSecure H@ :0 Tupac Secure
+:compton.deathrow.net 352 TupacSecure #badboy ~tupac @@.deathrow.net compton.deathrow.net TupacSecure H@ :0 Tupac Secure
+:compton.deathrow.net 352 TupacSecure #badboy ~tupac thugpassion.@@.net compton.deathrow.net TupacSecure H@ :0 Tupac Secure
+:compton.deathrow.net 352 TupacSecure #badboy ~tupac thugpassion.deathrow.@@ compton.deathrow.net TupacSecure H@ :0 Tupac Secure
+:compton.deathrow.net 352 TupacSecure #badboy ~tupac thugpassion.deathrow.net @@ TupacSecure H@ :0 Tupac Secure
+:compton.deathrow.net 352 TupacSecure #badboy ~tupac thugpassion.deathrow.net compton.deathrow.net @@ H@ :0 Tupac Secure
+:compton.deathrow.net 352 TupacSecure #badboy ~tupac thugpassion.deathrow.net compton.deathrow.net TupacSecure @@ :0 Tupac Secure
+:compton.deathrow.net 352 TupacSecure #badboy ~tupac thugpassion.deathrow.net compton.deathrow.net TupacSecure H@ :@@
+
+:@@ 315 TupacSecure #badboy :End of /WHO list.
+:compton.deathrow.net 315 @@ #badboy :End of /WHO list.
+:compton.deathrow.net 315 TupacSecure @@ :End of /WHO list.
+:compton.deathrow.net 315 TupacSecure #badboy :@@
+
+# JOIN
+:@@!~biggie@thugpassion.deathrow.net JOIN :#badboy
+:biggie!@all@@thugpassion.deathrow.net JOIN :#badboy
+:biggie!~biggie@@all@ JOIN :#badboy
+:biggie!~biggie@thugpassion.deathrow.net JOIN :@@
+:biggie!~biggie@@all@.deathrow.net JOIN :#badboy
+:biggie!~biggie@thugpassion.@@.net JOIN :#badboy
+:biggie!~biggie@thugpassion.deathrow.@@ JOIN :#badboy
+:biggie!~biggie@thugpassion.deathrow.net JOIN :#@@
+
+# PART
+:@@!~tupac@thugpassion.deathrow.net PART #badboy
+:TupacSecure!@all@@thugpassion.deathrow.net PART #badboy
+:TupacSecure!~tupac@@all@ PART #badboy
+:TupacSecure!~tupac@thugpassion.deathrow.net PART @@
+:TupacSecure!~tupac@thugpassion.deathrow.net PART #@@
+:TupacSecure!~tupac@thugpassion.deathrow.net PART #badboy :@@
+
+# INVITE
+:@@!~biggie@thugpassion.deathrow.net INVITE TupacSecure :#badboy
+:biggie!@all@@thugpassion.deathrow.net INVITE TupacSecure :#badboy
+:biggie!~biggie@@all@ INVITE TupacSecure :#badboy
+:biggie!~biggie@thugpassion.@@.net INVITE TupacSecure :#badboy
+:biggie!~biggie@thugpassion.deathrow.@@ INVITE TupacSecure :#badboy
+:biggie!~biggie@thugpassion.deathrow.net INVITE @@ :#badboy
+:biggie!~biggie@thugpassion.deathrow.net INVITE TupacSecure :@@
+
+# TOPIC
+:@@!~biggie@thugpassion.deathrow.net TOPIC #asdf :asdf
+:biggie!@all@@thugpassion.deathrow.net TOPIC #asdf :asdf
+:biggie!~biggie@@all@ TOPIC #asdf :asdf
+:biggie!~biggie@thugpassion.deathrow.net TOPIC @@ :asdf
+:biggie!~biggie@thugpassion.deathrow.net TOPIC #@@ :asdf
+:biggie!~biggie@thugpassion.deathrow.net TOPIC #asdf :@@
+
+# KICK
+:@@!~biggie@thugpassion.deathrow.net KICK #badboy TupacSecure :#badboy
+:biggie!@all@@thugpassion.deathrow.net KICK #badboy TupacSecure :#badboy
+:biggie!~biggie@@all@ KICK #badboy TupacSecure :#badboy
+:biggie!~biggie@thugpassion.deathrow.net KICK @@ TupacSecure :#badboy
+:biggie!~biggie@thugpassion.deathrow.net KICK #@@ TupacSecure :#badboy
+:biggie!~biggie@thugpassion.deathrow.net KICK #badboy @@ :#badboy
+:biggie!~biggie@thugpassion.deathrow.net KICK #badboy TupacSecure :@@
+
+# Numeric 404 -- cant send to channel
+:@@ 404 TupacSecure #badboy :Cannot send to channel
+:compton.deathrow.net 404 @@ #badboy :Cannot send to channel
+:compton.deathrow.net 404 TupacSecure @@ :Cannot send to channel
+:compton.deathrow.net 404 TupacSecure #@@ :Cannot send to channel
+:compton.deathrow.net 404 TupacSecure #badboy :@@
+
+# MODE for channel
+:@@!~biggie@thugpassion.deathrow.net MODE #badboy -m
+:biggie!@all@@thugpassion.deathrow.net MODE #badboy -m
+:biggie!~biggie@@all@ MODE #badboy -m
+:biggie!~biggie@thugpassion.@@.net MODE #badboy -m
+:biggie!~biggie@thugpassion.deathrow.@@ MODE #badboy -m
+:biggie!~biggie@thugpassion.deathrow.net MODE @@ -m
+:biggie!~biggie@thugpassion.deathrow.net MODE #@@ -m
+:biggie!~biggie@thugpassion.deathrow.net MODE #badboy @@
+:biggie!~biggie@thugpassion.deathrow.net MODE #badboy -@@
+:biggie!~biggie@thugpassion.deathrow.net MODE #badboy +@@
+
+# NICK
+:@@!~biggie@thugpassion.deathrow.net NICK :Biggie
+:biggie!@all@@thugpassion.deathrow.net NICK :Biggie
+:biggie!~biggie@@all@ NICK :Biggie
+:biggie!~biggie@thugpassion.@@.net NICK :Biggie
+:biggie!~biggie@thugpassion.deathrow.@@ NICK :Biggie
+:biggie!~biggie@thugpassion.deathrow.net NICK :@@
+
+# QUIT
+:@@!~biggie@thugpassion.deathrow.net QUIT :Quit: asdf
+:Biggie!@all@@thugpassion.deathrow.net QUIT :Quit: asdf
+:Biggie!~biggie@@all@ QUIT :Quit: asdf
+:Biggie!~biggie@thugpassion.deathrow.net QUIT :@@
+
+# Numeric 482 -- not a channel operator
+:@@ 482 TupacSecure #badboy :You are not channel operator
+:compton.deathrow.net 482 @@ #badboy :You are not channel operator
+:compton.deathrow.net 482 TupacSecure @@ :You are not channel operator
+:compton.deathrow.net 482 TupacSecure #badboy :@@
+
+# CTCP
+:@@!~biggie@thugpassion.deathrow.net PRIVMSG TupacSecure :.PING.
+:biggie!@all@@thugpassion.deathrow.net PRIVMSG TupacSecure :.PING.
+:biggie!~biggie@@all@ PRIVMSG TupacSecure :.PING.
+:biggie!~biggie@thugpassion.deathrow.net PRIVMSG @@ :.PING.
+:biggie!~biggie@thugpassion.deathrow.net PRIVMSG TupacSecure :@@
+:biggie!~biggie@thugpassion.deathrow.net PRIVMSG TupacSecure :.@@.
+#:biggie!~biggie@thugpassion.deathrow.net PRIVMSG TupacSecure :.TIME.
+#:biggie!~biggie@thugpassion.deathrow.net PRIVMSG TupacSecure :.VERSION.
+:TupacSecure!~tupac@thugpassion.deathrow.net NOTICE TupacSecure :.VERSION @@.
+:TupacSecure!~tupac@thugpassion.deathrow.net NOTICE TupacSecure :.TIME @@.
+:TupacSecure!~tupac@thugpassion.deathrow.net NOTICE TupacSecure :.PING @@.
