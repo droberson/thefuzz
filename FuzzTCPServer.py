@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-Start of TCP Fuzzer. Still very rough.
+Start of TCP fuzzing server. Still very rough.
 """
 
 import socket
@@ -90,22 +90,22 @@ class FuzzTCPServer(object):
         return fuzz_strings
 
 
-    def add_script(self, scriptfile):
+    def add_script(self, script_file):
         """add_script() -- Parses a script file, adding fuzz items to queue.
 
         Args:
-            scriptfile (str) - Path to script file.
+            script_file (str) - Path to script file.
 
         Returns:
             True if the file was parsed successfully.
             False if the file was not parsed successfully.
         """
-        if not os.access(scriptfile, os.R_OK):
-            print "[-] Could not open %s for reading" % scriptfile
+        if not os.access(script_file, os.R_OK):
+            print "[-] Could not open %s for reading" % script_file
             return False
 
         linecount = 0
-        for line in open(scriptfile, "r"):
+        for line in open(script_file, "r"):
             linecount += 1
             line = line.rstrip()
 
@@ -119,7 +119,7 @@ class FuzzTCPServer(object):
                 varcount += line.count(var[0])
             if varcount > 1:
                 print "[-] Too many variables on line %d of %s. Skipping." % \
-                    (linecount, scriptfile)
+                    (linecount, script_file)
                 print "    %s\n" % line
                 continue
 
