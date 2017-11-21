@@ -122,3 +122,19 @@ strings in place of variables:
 ...
 ```
 
+## FuzzTCPClient.py
+
+This file contains a class for creating TCP fuzzing clients:
+
+```
+#!/usr/bin/env python
+
+from FuzzTCPClient import *
+
+client = FuzzTCPClient("127.0.0.1", 4444)
+client.header="lol\r\n"
+client.add_script("scripts/dummy.fuzz")
+client.fuzz(delay=1)
+```
+
+The scripting notation is the same as the servers.
