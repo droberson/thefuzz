@@ -17,7 +17,6 @@ BUFSIZ = 1024
 
 # Things to do:
 # - Expect abilities. example: client sends PASS*, server sends +OK
-# - Docstrings
 # - Use this class to actually build some fuzzers
 # - ability to omit \r\n
 # - Count fuzz strings
@@ -68,7 +67,17 @@ class FuzzTCPServer(object):
 
     @staticmethod
     def get_fuzz_strings(string):
-        """get_fuzz_strings()"""
+        """get_fuzz_strings() -- Parses a line from a script file, returning
+                              -- relevant fuzz strings. Ex: @bof@ will return a
+                              -- tuple of strings that may trigger buffer
+                              -- overflows.
+
+        Args:
+            string (str) - String containing a line from a configuration file
+
+        Returns:
+            A tuple of tuples containing relevant fuzz strings
+        """
         count = 0
         fuzz_strings = ()
 
@@ -82,7 +91,15 @@ class FuzzTCPServer(object):
 
 
     def add_script(self, scriptfile):
-        """add_script() -- parses script file and adds items to queue"""
+        """add_script() -- Parses a script file, adding fuzz items to queue.
+
+        Args:
+            scriptfile (str) - Path to script file.
+
+        Returns:
+            True if the file was parsed successfully.
+            False if the file was not parsed successfully.
+        """
         if not os.access(scriptfile, os.R_OK):
             print "[-] Could not open %s for reading" % scriptfile
             return False
@@ -127,25 +144,58 @@ class FuzzTCPServer(object):
         return True
 
     def add_connection(self, sock, address):
-        """Add connection"""
+        """add_connection() -- Adds an incoming connection to inputs and outputs
+                            -- lists. This is for internal record keeping.
+
+        Args:
+            sock (fd)     - Socket of the incoming connection.
+            address (str) - IP address of incoming connection.
+
+        Returns:
+            Nothing.
+        """
         self.inputs.append(sock)
         self.outputs.append(sock)
         self.clientmap[sock] = address[0]
 
 
     def remove_connection(self, sock):
-        """Cleanup"""
+        """remove_connection() -- Removes a connection from internal list.
+
+        Args:
+            sock (fd) - Socket that is going away.
+
+        Returns:
+            Nothing.
+        """
         sock.close()
         self.inputs.remove(sock)
         if sock in self.outputs:
             self.outputs.remove(sock)
 
+
     def getname(self, sock):
-        """Get hostname"""
+        """getname() -- Get IP address of a socket.
+
+        Args:
+            sock (fd) - Socket fd
+
+        Returns:
+            IP address of socket
+        """
         return self.clientmap[sock]
 
-    def siginthandler(self, signum, frame):
-        """Handle SIGINT"""
+
+    def siginthandler(self, signum, _):
+        """siginthandler() -- Handle SIGINT (Control-C, usually). Close sockets
+                           -- and exit the program as cleanly as possible.
+
+        Args:
+            signum (int) - Signal number.
+
+        Returns:
+            Nothing.
+        """
         print "[-] Caught signal %d" % signum
         print "[-] Exiting."
 
@@ -156,7 +206,16 @@ class FuzzTCPServer(object):
 
 
     def send(self, sock, buf):
-        """send data"""
+        """send() -- Sends data to a socket.
+
+        Args:
+            sock (fd) - Socket to send data to.
+            buf (str) - Data to send to the socket.
+
+        Returns:
+            True if send was successful.
+            False if send was unsuccessful.
+        """
         try:
             sock.send(buf)
         except socket.error, exc:
@@ -167,7 +226,16 @@ class FuzzTCPServer(object):
 
 
     def recv(self, sock, bufsiz):
-        """receive data"""
+        """recv() -- Receive data from a socket.
+
+        Args:
+            sock (fd)    - Socket to receive data from.
+            bufsiz (int) - Number of bytes to read.
+
+        Returns:
+            String containing data if there was data to be had.
+            None if there was no data or an error occurred
+        """
         try:
             data = sock.recv(bufsiz)
             if data:
@@ -179,7 +247,14 @@ class FuzzTCPServer(object):
 
 
     def serve(self, delay=0):
-        """Main server loop"""
+        """serve() -- Main server loop.
+
+        Args:
+            delay (int) -- Delay between sending fuzz strings (default: 0)
+
+        Returns:
+            True after all fuzz strings have been exhausted.
+        """
         self.inputs = [self.server]
 
         running = True
@@ -230,3 +305,4 @@ class FuzzTCPServer(object):
                 self.remove_connection(sock)
 
         self.server.close()
+        return True
