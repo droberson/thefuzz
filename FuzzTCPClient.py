@@ -36,10 +36,8 @@ class FuzzTCPClient(object):
             sys.exit(os.EX_USAGE)
 
         # Create client socket
-        self.client = None 
-        #self.client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        #self.client.setblocking(0)
-        #fcntl.fcntl(self.client, fcntl.F_SETFL, os.O_NONBLOCK)
+        self.client = None
+
 
     @staticmethod
     def get_fuzz_strings(string):
