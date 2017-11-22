@@ -8,10 +8,7 @@ import socket
 import Queue
 import os
 import sys
-import signal
-import fcntl
 import time
-import errno
 import constants as fuzz_constants
 
 
