@@ -2,6 +2,14 @@
 
 """
 Start of TCP fuzzing client. Still very rough!!
+
+TODO:
+ - Quiet mode. Sometimes I just dont care what the output is.
+ - Logging.
+ - send() wrapper.
+ - recv() wrapper.
+ - Combine common functionality with FuzzTCPServer somehow to get rid of the
+   code reuse.
 """
 
 import socket
@@ -14,7 +22,6 @@ import constants as fuzz_constants
 
 class FuzzTCPClient(object):
     """TCP Client object for thefuzz suite"""
-
     def __init__(self, server, port):
         self.server = server
         self.port = port
@@ -41,6 +48,17 @@ class FuzzTCPClient(object):
 
     @staticmethod
     def get_fuzz_strings(string):
+        """get_fuzz_strings() -- Parses a line from a script file, returning
+                              -- relevant fuzz strings. Ex: @bof@ will return a
+                              -- tuple of strings that may trigger buffer
+                              -- overflows.
+
+        Args:
+            string (str) - String containing a line from a configuration file.
+
+        Returns:
+            A tuple of tuples containing relevant fuzz strings.
+        """
         count = 0
         fuzz_strings = ()
 
@@ -52,7 +70,17 @@ class FuzzTCPClient(object):
 
         return fuzz_strings
 
+
     def add_script(self, script_file):
+        """add_script() -- Parses a fuzz script
+
+        Args:
+            script_file (str) - Path to script file.
+
+        Returns:
+            True if the script was parsed successfully.
+            False if the script was not parsed successfully.
+        """
         if not os.access(script_file, os.R_OK):
             print "[-] Could not open %s for reading" % script_file
             return False
@@ -96,7 +124,17 @@ class FuzzTCPClient(object):
 
         return True
 
+
     def connect(self):
+        """connect() -- Initiate a TCP connection to a host.
+
+        Args:
+            None -- Set during __init__
+
+        Returns:
+            True if the socket connected.
+            False if the socket did not connect.
+        """
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client.setblocking(1) ### had to do this or header gets lost???
 
@@ -117,6 +155,19 @@ class FuzzTCPClient(object):
 
 
     def fuzz(self, delay=0):
+        """fuzz() -- Actually do the fuzzing.
+
+        Args:
+            delay (int) - Delay in seconds between sending strings.
+
+        Returns:
+            Nothing.
+
+        TODO:
+         - Clean this up in general. Ugly AF!
+         - There is a bug where you lose 1 fuzz string when the socket is
+           disconnected. Haven't figured this out yet :(
+        """
         running = True
         current_fuzz = None
 
