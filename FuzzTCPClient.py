@@ -115,7 +115,8 @@ class FuzzTCPClient(object):
                 print "[-] connect error: %s" % exc
                 return False
 
-        self.client.send(self.header + "\r\n")
+        if self.header is not None:
+            self.client.send(self.header)
         self.client.setblocking(0)
         return True
 
