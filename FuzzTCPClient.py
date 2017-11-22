@@ -10,6 +10,8 @@ TODO:
  - recv() wrapper.
  - Combine common functionality with FuzzTCPServer somehow to get rid of the
    code reuse.
+ - SIGINT handler.
+ - Ability to pause fuzzing.
 """
 
 import socket
