@@ -32,7 +32,7 @@ def main():
     fuzz = ircfuzz.FuzzTCPServer(bindaddr=args.bindaddr, port=args.port)
     fuzz.banner = "Welcome to the best irc server ever.\r\n"
     fuzz.add_script("scripts/irc-server.script")
-    fuzz.serve(delay=args.delay)
+    fuzz.serve(delay=args.delay, verbose=True)
 
 
 if __name__ == "__main__":
