@@ -246,11 +246,12 @@ class FuzzTCPServer(object):
             return None
 
 
-    def serve(self, delay=0):
+    def serve(self, delay=0, verbose=False):
         """serve() -- Main server loop.
 
         Args:
             delay (int) -- Delay between sending fuzz strings (default: 0)
+            verbose     -- Be verbose? (default: False)
 
         Returns:
             True after all fuzz strings have been exhausted.
@@ -290,6 +291,11 @@ class FuzzTCPServer(object):
             for sock in outputs:
                 if not self.fuzz_queue.empty():
                     current_fuzz = self.fuzz_queue.get()
+
+                    # Show current string if verbose is true
+                    if verbose is True:
+                        print ">>> %s" % current_fuzz
+
                     if self.send(sock, current_fuzz) is False:
                         break
 
